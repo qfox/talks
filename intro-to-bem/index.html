@@ -1,0 +1,415 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+	<title>Блоки, модули и веб-интерфейсы — ya@dalee.ru</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=1274, user-scalable=no">
+	<link rel="stylesheet" href="../themes/dalee/styles/screen.css">
+	<style>
+		#Cover h2 {
+			position:absolute;
+			left:103px;
+			color:white;
+			letter-spacing:1px;
+			text-shadow:1px 1px 2px black;
+			font-size:64px;
+			}
+		#Cover h3 {
+			position:absolute;
+			top:297px;
+			left:0;
+			padding:29px 0 0 104px;
+			width:306px;
+			height:224px;
+			background:rgba(0, 0, 0, 0.4);
+			color:#FFF;
+			line-height:64px;
+			font-size:50px;
+			}
+		.cover h2 {
+			color:white;
+			text-shadow:1px 1px 2px black;
+			}
+
+		.last-state-toggler { visibility: hidden; }
+		.last-state div { color: #999; }
+		.last-state h3, .last-state .last { color: #000; }
+
+		.slide i {
+			color: #333;
+		}
+		.slide img.one {
+			width:100%;
+		}
+
+		.slide>.viewport {
+			z-index:0;
+			}
+			.slide>.viewport>h2 {
+				background: rgba(255, 255, 255, 0.5);
+				outline: 50px solid rgba(255, 255, 255, 0.5);
+				position: absolute;
+				z-index: 10;
+				}
+			.slide>.viewport>.scrolled {
+				display: flex;
+				overflow-y: auto;
+				height: 100%;
+				}
+				.slide>.viewport>.scrolled .half {
+					flex: 1 1;
+					width: 45%;
+					margin-right: 4%;
+					}
+				.slide>.viewport>.scrolled .half img {
+					width: 100%;
+					border: 1px dotted rgba(0, 0, 0, 0.5);
+					}
+
+		.columns {
+			display:flex;
+			height:100%;
+			}
+		.columns.scrolled {
+			overflow-y: auto;
+			height: 75%;
+			border-bottom: 50px solid transparent;
+			}
+			.columns>div {
+				flex: 1;
+				width: 46%;
+				margin-right: 3%;
+				}
+				.columns>div>img {
+					width: 100%;
+					border: 1px dotted rgba(0, 0, 0, 0.5);
+					}
+
+		.slide pre code {
+			line-height: 32px;
+			font-size: 22px;
+			}
+	</style>
+</head>
+<body class="list">
+	<header class="caption">
+		<h1>Блоки, модули и веб-интерфейсы</h1>
+		<p><a href="http://qfox.ru/">Алексей Ярошевич</a>, <a href="http://dalee.ru">Dalee Digital Agency</a></p>
+	</header>
+	<section class="slide generic" id="Cover"><div>
+		<img src="pictures/food/purple-candies.jpg" alt="">
+		<header>
+			<h2>Блоки, модули и веб-интерфейсы</h2>
+			<h3>И про то,<br> как с этим<br>жить-быть</h3>
+		</header>
+	</div></section>
+	<section class="slide"><div>
+		<h2>О чем сей рассказ</h2>
+		<ul>
+			<li class="next"><b>Тёмные времена — </b> те, когда вампиры питались кровью</li>
+			<li class="next"><b>Модульные системы — </b> поставщики и цена вопроса</li>
+			<li class="next"><b>Декомпозиция UI — </b> отделяем зерна от плевел</li>
+			<li class="next" title="Разделение view на контекст и данные"><b>Данные, шаблоны и View — </b> и того, и другого, и можно без хлеба</li>
+			<li class="next" title="Структура БЭМ блоков"><b>Блоки или модули — </b> это как булка или батон</li>
+			<li class="next" title="Подбробнее о миксах"><b>Смешиваем Блоки — </b> правила и порядок</li>
+			<li class="next" title="Примеры сборок"><b>b-hello, b-world! — </b> запекаем при 120°С</li>
+			<li class="next" title="Используем в проксиме"><b>BEM + Proxima = ❤ —</b> любовь зла</li>
+		</ul>
+	</div></section>
+	<section class="slide cover"><div>
+		<h2>Немного истории</h2>
+		<img src="pictures/food/yellow-cheese.jpg" alt="">
+	</div></section>
+	<section class="slide with-last-state"><div>
+		<h2>Немного истории</h2>
+		<h3>Способы подачи информации <i>(условно)</i></h3>
+		<ul>
+			<li class="next"><b>Бумажные носители</b> <i class="next">(типография)</i><br><span class="next">
+				книгопечатание (книги, брошюры), периодика (газеты, журналы)
+			</span></li>
+			<li class="next"><b>Медиа-данные</b> <br><span class="next">
+				картины, музыка, аудио, видео, изображения, etc.
+			</span></li>
+			<li class="next"><b class="last">Интерактивные (масс-)медиа</b> <br><span class="next">
+				радио, телефония, телевидение, <span class="last">интернет</span>, etc.
+			</span></li>
+		</ul>
+	</div></section>
+
+	<section class="slide cover"><div>
+		<h2>Модульные системы</h2>
+		<img src="pictures/food/modular.jpg" alt="">
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Модульные системы</h2>
+		<h3>Плюсы</h3>
+		<ul>
+			<li class="next">Упорядочивает интерфейс и дизайн</li>
+			<li class="next">Ускоряет интеграцию дизайна <i>на первом этапе</i></li>
+			<li class="next"><i>Отчасти, </i>дает коллективное владение кодом</li>
+		</ul>
+		<h3 class="next">Минусы</h3>
+		<ul>
+			<li class="next">Требует изучения реализации</li>
+			<li class="next">Заставляет оперировать «модулями» (2/24, 5/18, …)</li>
+		</ul>
+	</div></section>
+	<section class="slide"><div>
+		<h2>Модульные системы</h2>
+		<img class="one" src="pictures/samples/grid-1.jpg" alt="">
+	</div></section>
+	<section class="slide"><div>
+		<h2>Модульные системы</h2>
+		<img class="one" src="pictures/samples/grid-2.jpg" alt="">
+	</div></section>
+	<section class="slide"><div>
+		<h2>Модульные системы</h2>
+		<img class="one" src="pictures/samples/grid-boxes.jpg" alt="">
+	</div></section>
+	<section class="slide"><div>
+		<h2>Модульные системы</h2>
+		<img class="one" src="pictures/samples/grid-complex.jpg" alt="">
+	</div></section>
+	<section class="slide"><div>
+		<h2>Модульные системы</h2>
+		<h3>CSS фреймворки</h3>
+		<ul>
+			<li class="next"><a href="http://960.gs/">960.gs</a> — An effort to streamline web development workflow</li>
+			<li class="next"><a href="http://blueprintcss.org/">Blueprint</a> — Aims to cut down on your development time</li>
+			<li class="next"><a href="http://lessframework.com/">Less</a> — CSS grid system for designing adaptive web­sites</li>
+			<li class="next"><a href="http://getbootstrap.com/">Bootstrap</a> — Sleek, intuitive, and powerful mobile first front-end framework</li>
+			<li class="next"><a href="http://compass-style.org/">Compass</a> — Open-source CSS Authoring Framework</li>
+			<li class="next">Ну и <a href="http://en.wikipedia.org/wiki/CSS_frameworks">многие другие</a>…</li>
+		</ul>
+	</div></section>
+
+	<section class="slide"><div class="viewport">
+		<h2>Модульные системы</h2>
+		<div class="scrolled">
+			<span class="half"><img src="pictures/samples/ex-gs-1-1.jpg" alt=""></span>
+			<span class="half"><img src="pictures/samples/ex-gs-1-2.jpg" alt=""></span>
+		</div>
+	</div></section>
+	<section class="slide"><div class="viewport">
+		<h2>Модульные системы</h2>
+		<div class="scrolled">
+			<span class="half"><img src="pictures/samples/ex-gs-2-1.jpg" alt=""><img src="pictures/samples/ex-gs-2-2.jpg" alt=""></span>
+			<span class="half"><img src="pictures/samples/ex-gs-2-3.jpg" alt=""></span>
+		</div>
+	</div></section>
+	<section class="slide"><div class="viewport">
+		<h2>Модульные системы</h2>
+		<div class="scrolled">
+			<span class="half"><img src="pictures/samples/ex-gs-3-1.jpg" alt=""></span>
+			<span class="half"><img src="pictures/samples/ex-gs-3-2.jpg" alt=""></span>
+		</div>
+	</div></section>
+
+
+	<section class="slide cover"><div>
+		<h2>Декомпозиция UI</h2>
+		<img src="pictures/food/melon.jpg" alt="">
+	</div></section>
+	<section class="slide"><div>
+		<h2>Декомпозиция UI</h2>
+		<div class="columns"><div>
+		</div><div>
+			<img src="pictures/samples/ex-ui-1-1.jpg" alt="">
+		</div></div>
+	</div></section>
+	<section class="slide"><div>
+		<h2>Декомпозиция UI</h2>
+		<div class="columns"><div>
+			<pre class="next">
+				<code>page</code>
+				<code>  header</code>
+				<code>    sky (верхнее меню)</code>
+				<code>  <mark>__logo</mark> (элемент)</code>
+				<code>    region-selector</code>
+				<code>    search-form</code>
+				<code>    navbar</code>
+				<code>  content</code>
+				<code>  footer</code>
+			</pre>
+		</div><div>
+			<img src="pictures/samples/ex-ui-1-2.jpg" alt="">
+		</div></div>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Декомпозиция UI</h2>
+		<div class="columns"><div>
+			<pre>
+				<code>page</code>
+				<code>  header</code>
+				<code>  content</code>
+				<code>    page__title</code>
+				<code>    struct-menu</code>
+				<code>    breadcrumbs</code>
+				<code>    <mark>list</mark></code>
+				<code>    __<mark>item</mark> + dt-event</code>
+			    <code>      ...</code>
+			    <code>    __<mark>pager</mark></code>
+				<code>    share</code>
+				<code>    bottom-banners</code>
+				<code>  footer</code>
+			</pre>
+		</div><div>
+			<img src="pictures/samples/ex-ui-1-2.jpg" alt="">
+		</div></div>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Декомпозиция UI</h2>
+		<h3>«Абсолютно» независимые блоки</h3>
+		<ul>
+			<li class="next">Любой интерфейс можно разделить на такие блоки <i class="next">так, что</i></li>
+			<li class="next">Каждый блок будет «отвечать» за свою функциональность <i class="next">и</i></li>
+			<li class="next">Не будет зависеть от других блоков</li>
+		</ul>
+		<p class="note next">Перепишем</p>
+	</div></section>
+	<section class="slide"><div>
+		<h2>Декомпозиция UI</h2>
+		<h3>«Абсолютно» независимые блоки</h3>
+		<ul>
+			<li>Интерфейс декомпозируется на АНБ;</li>
+			<li>Каждый АНБ «отвечает» за свой кусочек View и функциональность;</li>
+			<li>Функциональность и вид АНБ сокрыта в своем контексте;</li>
+			<li class="next">АНБ это объекты — наследование, инкапсуляция, полиморфизм;</li>
+			<li class="next">АНБ включают в себя все нужные технологии (js, css, html, etc.);</li>
+			<li class="next"><i>Бонус: </i>АНБ позволяют более просто параллелить работу.</li>
+		</ul>
+		<p class="next note">Это только базовые тезисы об АНБ</p>
+	</div></section>
+
+	<section class="slide cover"><div>
+		<h2>View, данные и контекст</h2>
+		<img src="pictures/food/marine-boats.jpg" alt="">
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>View, данные и контекст</h2>
+		<h3>Переиспользование кода, гибкая конфигурация</h3>
+		<p class="next">Наследование позволяет более мелко разделять блоки и функциональные части,
+			что позволяет избавится от дублирования кода.</p>
+		<ul>
+			<li class="next">CSS имеет возможность доопределения стилей <b class="next">— OK</b></li>
+			<li class="next">JS <span class="next">может получить эту возможность используя некую библиотеку</span></li>
+			<li class="next">HTML — строка. <i class="next">И что делать?</i></li>
+		</ul>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>View, данные и контекст</h2>
+		<h3>Возможность наследования функциональности</h3>
+		<p class="next">JS код, представляющий нестандартное поведение, должен описываться как класс и каждый экземпляр должен быть объектом!</p>
+		<ul>
+			<li class="next">Нужна JS-обертка;</li>
+			<li class="next">Она должна быть декларативной, как классы в ООП;</li>
+			<li class="next">Она должна связывать отображение (html/css) с экзепляром;</li>
+		</ul>
+		<p class="next">Уже реализовано: <a href="http://ru.bem.info/libs/bem-core/1.0.0/i-bem.js/bem-js-main-terms/">i-bem</a>.</p>
+	</div></section>
+
+	<section class="slide cover"><div>
+		<h2>View, данные и контекст</h2>
+		<h3>Возможность наследования отображения</h3>
+		<p>Беда-беда.</p>
+	</div></section>
+
+	<section class="slide"><div>
+Разделение view на контекст и данные, зачем?
+ • Переиспользование кода, гибкая конфигурация
+ • Возможность наследования шаблонов, стилей и функциональности
+ • Уменьшение проблем с i18n
+ • Проще документировать
+	</div></section>
+
+	<section class="slide"><div>
+Структура бэм блоков
+ • Блоки, элементы, модификаторы, технологии
+ • Как это все лежит на диске
+ • Техническая реализация (связь блоков со страницами), тонкие места
+ • Миксы, и курс ninja
+	</div></section>
+
+	<section class="slide"><div>
+Подробнее о миксах
+ • Гибкость и простота
+ • Где стоит использовать
+ • Почему и где не стоит
+	</div></section>
+
+	<section class="slide"><div>
+Примеры распиливания функциональности на отдельные блоки
+ • Инпут с плейсхолдером и инпут с выбором даты
+ • Тип инпута date-range
+ • Форма с кучей полей
+ • LP страница
+	</div></section>
+
+	<section class="slide"><div>
+Как использовать в проксиме
+ • Смешанные шаблоны и как с ними жить
+ • Хелперы смарти (b, e, etc.)
+ • Недостатки, и варианты обхода
+	</div></section>
+
+	<section class="slide"><div>
+		<!-- Photo by Carl Warner – bit.ly/fdscp -->
+	</div></section>
+	<section class="slide"><div>
+		<header>
+			<h2>Блоки, модули и веб-интерфейсы</h2>
+		</header>
+		<p>Алексей Ярошевич, Dalee Digital Agency</p>
+		<ul>
+			<li><a href="http://twitter.com/yaroshevich">@qfox</a></li>
+			<li><a href="http://qfox.ru">qfox.ru</a></li>
+			<li><a href="mailto:zxqfox@gmail.com">zxqfox@gmail.com</a></li>
+		</ul>
+		<p>Фотографии: <a href="http://bit.ly/fdscp">Carl Warner</a></p>
+		<p>Презентация: <a href="http://shows.dev.dalee.ru/intro-to-bem/">shows.dev.dalee.ru/intro-to-bem</a></p>
+	</div></section>
+	<p class="badge"><a href="https://github.com/shower/shower">Powered by Shower</a></p>
+	<div class="progress"><div></div></div>
+
+
+	<script>
+		(function () {
+			var withLastState = document.querySelectorAll('.slide.with-last-state');
+			var i, l, div;
+			for (i = 0, l = withLastState.length; i < l; i++) {
+				div = document.createElement('div');
+				div.setAttribute('class', 'next last-state-toggler');
+				withLastState[i].appendChild(div);
+				withLastState[i].classList.remove('with-last-state')
+			}
+		}());
+	</script>
+	<script src="../shower/shower.js"></script>
+	<script>
+		(function () {
+			shower.__turnNextSlide = shower._turnNextSlide;
+			shower._turnNextSlide = function (cb) {
+			var slide = shower.slideList[shower.getCurrentSlideNumber()];
+				shower.__turnNextSlide(function () {
+					var slideElement = document.getElementById(slide.id);
+					var toggler = slideElement.querySelectorAll('.next.last-state-toggler.active')[0];
+					if (toggler) {
+						slideElement.removeChild(toggler);
+						slideElement.classList.add('last-state');
+					}
+
+					if (typeof cb === 'function') {
+						cb();
+					}
+				});
+			};
+		}());
+	</script>
+	<!-- Copyright © 2013 Alexej Yaroshevich — shows.dev.dalee.ru -->
+</body>
+</html>

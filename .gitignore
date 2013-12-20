@@ -1,0 +1,4 @@
+/themes
+*.sublime-*
+.DS_*
+._*
