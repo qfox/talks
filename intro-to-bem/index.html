@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="ru">
 <head>
-	<title>Блоки, модули и веб-интерфейсы — ya@dalee.ru</title>
+	<title>Блоки, модули и веб-интерфейсы — qfox@ya.ru</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=1274, user-scalable=no">
 	<link rel="stylesheet" href="../themes/dalee/styles/screen.css">
@@ -98,6 +98,7 @@
 	</header>
 	<section class="slide generic" id="Cover"><div>
 		<img src="pictures/food/purple-candies.jpg" alt="">
+		<!-- Photo by Carl Warner – bit.ly/fdscp -->
 		<header>
 			<h2>Блоки, модули и веб-интерфейсы</h2>
 			<h3>И про то,<br> как с этим<br>жить-быть</h3>
@@ -119,6 +120,7 @@
 	<section class="slide cover"><div>
 		<h2>Немного истории</h2>
 		<img src="pictures/food/yellow-cheese.jpg" alt="">
+		<!-- Photo by Carl Warner – bit.ly/fdscp -->
 	</div></section>
 	<section class="slide with-last-state"><div>
 		<h2>Немного истории</h2>
@@ -139,6 +141,7 @@
 	<section class="slide cover"><div>
 		<h2>Модульные системы</h2>
 		<img src="pictures/food/modular.jpg" alt="">
+		<!-- Photo by Carl Warner – bit.ly/fdscp -->
 	</div></section>
 
 	<section class="slide"><div>
@@ -287,6 +290,7 @@
 	<section class="slide cover"><div>
 		<h2>View, данные и контекст</h2>
 		<img src="pictures/food/marine-boats.jpg" alt="">
+		<!-- Photo by Carl Warner – bit.ly/fdscp -->
 	</div></section>
 
 	<section class="slide"><div>
@@ -308,40 +312,240 @@
 		<ul>
 			<li class="next">Нужна JS-обертка;</li>
 			<li class="next">Она должна быть декларативной, как классы в ООП;</li>
-			<li class="next">Она должна связывать отображение (html/css) с экзепляром;</li>
+			<li class="next">Она должна связывать отображение (html/css) с экземпляром;</li>
 		</ul>
-		<p class="next">Уже реализовано: <a href="http://ru.bem.info/libs/bem-core/1.0.0/i-bem.js/bem-js-main-terms/">i-bem</a>.</p>
+	</div></section>
+
+	<section class="slide shout grow"><div>
+		<h2><a href="http://ru.bem.info/libs/bem-core/1.0.0/i-bem.js/bem-js-main-terms/">i-bem</a></h2>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>View, данные и контекст</h2>
+		<h3>Возможность наследования шаблонов</h3>
+		<p class="next">Возможно при декларативном описании шаблонов и данных.</p>
+		<ul>
+			<li class="next">XML + XSL</li>
+			<li class="next">JSON + JSON2HTML</li>
+			<li class="next">BEMJSON + BEMHTML</li>
+			<li class="next">данные + преобразование</li>
+		</ul>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>View, данные и контекст</h2>
+		<h3>BEMJSON</h3>
+		<p>View-ориентированные данные, легко преобразуемые в HTML</p>
+		<pre>
+			<code>{ "block"   : <mark>String</mark>,</code>
+			<code>  "content" : <mark>String|Array|BEMJSON</mark>,</code>
+			<code>  "mix"     : <mark>Hash&lt;block: String, elem: String&gt;</mark>,</code>
+			<code>  "js"      : <mark>Hash</mark>,</code>
+			<code>… }</code>
+		</pre>
+		<p><a href="http://ru.bem.info/libs/bem-core/1.0.0/bemhtml/intro/">BEMJSON</a></p>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>View, данные и контекст</h2>
+		<h3>BEMHTML</h3>
+		<p>Правила преобразования view-ориентированных данных в HTML</p>
+		<pre>
+			<code>block(<mark>String</mark>){</code>
+			<code>  tag(<mark>String</mark>);</code>
+			<code>  …</code>
+			<code>}</code>
+		</pre>
+		<p><a href="http://ru.bem.info/libs/bem-core/1.0.0/bemhtml/rationale/">BEMHTML</a></p>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>View, данные и контекст</h2>
+		<h3>BEMTREE</h3>
+		<p>Правила преобразования сырых данных (от API) во view-ориентированный BEMJSON</p>
+		<ul>
+			<li class="next">Синтаксис схож с BEMHTML</li>
+			<li class="next">Уменьшает энтропию</li>
+			<li class="next">Упрощает совместную работу с кодом</li>
+		</ul>
+	</section>
+
+	<section class="slide"><div>
+		<h2>View, данные и контекст</h2>
+		<h3>Сборка страницы по классике</h3>
+		<ul>
+			<li class="next">BEMJSON = данные от API + BEMTREE (или ручная сборка)</li>
+			<li class="next">HTML = BEMJSON + BEMHTML</li>
+		</ul>
+		<p class="next">Подход позволяет производить сборку страницы, или любых ее частей, как на сервере, так и на клиенте.</p>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>View, данные и контекст</h2>
+		<h3>Сборка страницы в Проксиме</h3>
+		<ul>
+			<li class="next">BEMPPON = дерево блоков с данными из админки и модулей</li>
+			<li class="next">HTML = BEMPPON + Smarty шаблоны + хелперы</li>
+		</ul>
+		<p class="next">Сборка также проходит в 2 этапа, позволяет упростить обработку данных и полностью разделить верстку и контент.</p>
+		<p class="next note">* Описания блоков хранятся глобально в <kbd>local/etc/blocks.xml</kbd>, но скорее всего это будет исправлено в будущем.</p>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>View, данные и контекст</h2>
+		<h3>BEMPPON</h3>
+		<p>View-ориентированные данные, легко преобразуемые в HTML</p>
+		<pre>
+			<code>[ "block"   => <mark>String</mark>,</code>
+			<code>  "mods"    => <mark>Hash</mark>,</code>
+			<code>  "data"    => <mark>Hash</mark>,</code>
+			<code>  "content" => <mark>String|BEMPPON|Array&lt;String|Array|BEMPPON&gt;</mark>,</code>
+			<code>  <strike>"mix"     => <mark>Hash&lt;block: String, elem: String&gt;</mark></strike>,</code>
+			<code>  "ibem"    => <mark>Hash</mark>,</code>
+			<code>… ]</code>
+		</pre>
 	</div></section>
 
 	<section class="slide cover"><div>
-		<h2>View, данные и контекст</h2>
-		<h3>Возможность наследования отображения</h3>
-		<p>Беда-беда.</p>
+		<h2>Структура блоков</h2>
+		<img src="pictures/food/gray-garlic.jpg" alt="">
 	</div></section>
 
 	<section class="slide"><div>
-Разделение view на контекст и данные, зачем?
- • Переиспользование кода, гибкая конфигурация
- • Возможность наследования шаблонов, стилей и функциональности
- • Уменьшение проблем с i18n
- • Проще документировать
+		<h2>Структура блоков</h2>
+		<ul>
+			<li><b>Блоки</b> — элементарные частицы в методологии, относительно них строятся все зависимости, они же являются контейнерами;</li>
+			<li class="next"><b>Элементы</b> — включаются блоками и позволяют выделить визуальные и функциональные их части;</li>
+			<li class="next"><b>Модификаторы</b> — опции блоков и элементов, позволяют расширять их функциональные и визуальные характеристики;</li>
+			<li class="next"><b>«Технологии»</b> — расширения блоков, их составные части: js, css, tmpl.</li>
+		</ul>
 	</div></section>
 
 	<section class="slide"><div>
-Структура бэм блоков
- • Блоки, элементы, модификаторы, технологии
- • Как это все лежит на диске
- • Техническая реализация (связь блоков со страницами), тонкие места
- • Миксы, и курс ninja
+		<h2>Структура блоков</h2>
+		<h3>Из чего состоят блоки</h3>
+		<ul>
+			<li>директория-контейнер,</li>
+			<li class="next">содержащая файлы реализации технологий</li>
+			<li class="next">и его элементов, модификаторов;</li>
+			<li class="next">метаинформация о блоке;</li>
+			<li class="next">ресурсы блока.</li>
+		</ul>
 	</div></section>
 
 	<section class="slide"><div>
-Подробнее о миксах
- • Гибкость и простота
- • Где стоит использовать
- • Почему и где не стоит
+		<h2>Структура блоков</h2>
+		<h3>Из чего состоят блоки</h3>
+		<pre>
+			<code>p-support/</code>
+			<code>	p-support.css</code>
+			<code>	p-support.js</code>
+			<code>	p-support.tmpl</code>
+			<code class="next">	<mark class="important">p-support__title</mark>/</code>
+			<code class="next">	<mark class="important">p-support_theme_red</mark>/</code>
+			<code class="next">	<mark>images</mark>/</code>
+			<code class="next">	<mark>button</mark>/</code>
+			<code class="next">	<mark>b-text</mark>/</code>
+		</pre>
+	</section>
+
+	<section class="slide"><div>
+		<h2>Структура блоков</h2>
+		<h3>Блоки-блоки, а где страницы?</h3>
+		<p class="next">В классической истории про БЭМ блоки лежат отдельной библиотекой и никак не соотносятся со страницами без явной привязки. Страницы там являются бандлами, которые собираются отдельно и просто ссылаются на блоки по названиям.
+			<br/><span class="next">
+			А у нас?
+		</span></p>
 	</div></section>
 
+	<section class="slide"><div>
+		<h2>Структура блоков</h2>
+		<p>Мы не можем собирать страницы заранее, поэтому приходится менять правила.</p>
+		<ul>
+			<li class="next">динамическое создание бандла из того, что нужно;</li>
+			<li class="next">динамическая сборка стилей и скриптов.</li>
+		</ul>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Структура блоков</h2>
+		<ul>
+			<li>описываем тип раздела, как и раньше, в <kbd>enums.xml</kbd>;</li>
+			<li class="next">создаем, как и раньше, раздел, но выставляем галочку <kbd>redesign</kbd>;</li>
+			<li class="next">создаем директорию блока и шаблон в <kbd>./local/blocks</kbd> с добавлением префикса <kbd>p-</kbd>;</li>
+			<li class="next"><strike>наслаждаемся результатом</strike> верстаем.</li>
+		</ul>
+		<p class="note next">Кроме прочего, в админке можно создать дерево блоков, которое прилетит в переменную $content в шаблон.</p>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Структура блоков</h2>
+		<p>Вместо глобальных файлов переводов удобно использовать отдельную «технологию» для каждого языка в блоке, что позволит вынести статические текстовки из разметки блоков.</p>
+		<pre class="next">
+			<code>block/</code>
+			<code>	block.tmpl</code>
+			<code>	block.<mark>i18n.ru.yaml</mark></code>
+			<code>	block.<mark>i18n.en.yaml</mark></code>
+		</pre>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Структура блоков</h2>
+		<p>Так же для частоиспользуемых блоков можно разместить<br/>
+			его изображение, какую-то документацию, имеющиеся<br/>
+			модификаторы и вид блока при их наличии.</p>
+		<pre class="next">
+			<code>block/</code>
+			<code>	block.<mark>preview.jpg</mark></code>
+			<code>	block_<mark>mod_one</mark>.preview.jpg</code>
+			<code>	block_mod_two.preview.jpg</code>
+			<code>	block.<mark>readme.md</mark></code>
+		</pre>
+	</div></section>
+
+	<section class="slide cover"><div>
+		<h2>Миксы блоков</h2>
+		<img src="./pictures/food/rainbow-fruits.jpg" alt="" />
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Миксы блоков</h2>
+		<h3>Гибкость и простота</h3>
+		<p>Термин для описания наличия на одной DOM-ноде нескольких блоков или элементов.</p>
+		<ul>
+			<li class="next"><code>&lt;a class="boy weeds boy_mode_smiling"&gt;</code></li>
+			<li class="next"><code>&lt;b class="man__head man__eye mutant__leg"&gt;</code></li>
+			<li class="next"><code>&lt;i class="boy girl__heart boy_mode_in-love"&gt;</code></li>
+		</ul>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Миксы блоков</h2>
+		<h3>Когда и зачем использовать</h3>
+		<ul>
+			<li class="next">Сабмит элемент формы в виде фиолетовой кнопки:<br/>
+				button button_theme_purple + feedback__submit
+			</li>
+			<li class="next">Поле ввода и функционал формы поиска:<br/>
+				input + search__suggest
+			</li>
+			<li class="next">Картинка, как элемент списка:<br/>
+				link + popup-container__trigger#id
+			</li>
+		</ul>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Миксы блоков</h2>
+		<ul>
+			<li>Примешивание внешней функциональности к блоку;</li>
+			<li>Cвязывание двух и более любых блоков путем подмешивания третьего;</li>
+			<li>и т.п.</li>
+		</ul>
+		<p><a class="next" href="http://tech.yandex.ru/events/yasubbotnik/msk-sep-2012/talks/327/">Презентация Кира Белевича, Яндекс</a></p>
+	</div></section>
+
+	<!--
 	<section class="slide"><div>
 Примеры распиливания функциональности на отдельные блоки
  • Инпут с плейсхолдером и инпут с выбором даты
@@ -349,17 +553,65 @@
  • Форма с кучей полей
  • LP страница
 	</div></section>
+-->
 
-	<section class="slide"><div>
-Как использовать в проксиме
- • Смешанные шаблоны и как с ними жить
- • Хелперы смарти (b, e, etc.)
- • Недостатки, и варианты обхода
+	<section class="cover slide"><div>
+		<h2>БЭМ по Проксиме</h2>
+		<img src="./pictures/food/red-scorpio.jpg" alt="" />
 	</div></section>
 
 	<section class="slide"><div>
-		<!-- Photo by Carl Warner – bit.ly/fdscp -->
+		<h2>БЭМ по Проксиме</h2>
+		<h3>Шаблоны блоков</h3>
+		<pre>
+			<code>&lt;{$tag} {$ibem}&gt; <mark class="comment">&lt;!-- можно опустить --&gt;</mark></code>
+			<code>	<mark class="comment">&lt;!-- вывод переменной из данных --&gt;</mark></code>
+			<code>	&lt;div class="{$b__}title"&gt;{$data.title}&lt;div&gt;</code>
+			<code>	<mark class="comment">&lt;!-- вывод внутренних блоков --&gt;</mark></code>
+			<code>	&lt;div class="{$b__}content"&gt;{$content}&lt;/div&gt;</code>
+			<code>	<mark class="comment">&lt;!-- подтянуть блок --&gt;</mark></code>
+			<code>	{b name="b-button" class="`$b__`trigger"</code>
+			<code>		tag="a" content="trigger"}</code>
+			<code>&lt;/{$tag}&gt;</code>
+		</pre>
 	</div></section>
+
+	<section class="slide"><div>
+		<h2>БЭМ по Проксиме</h2>
+		<h3>Шаблоны блоков</h3>
+		<pre>
+			<code><mark class="comment">&lt;!-- перебор всех блоков --&gt;</mark></code>
+			<code>&lt;ul class="{$b__}content"&gt;</code>
+			<code>  {foreach from=$content item=b}</code>
+			<code>    &lt;li class=""&gt;</code>
+			<code>      {b name=$b.block data=$b.data mods=$b.mods ...}</code>
+			<code>    &lt;/li&gt;</code>
+			<code>  {/foreach}</code>
+			<code>&lt;/ul&gt;</code>
+		</pre>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>БЭМ по Проксиме</h2>
+		<h3>Шаблоны блоков</h3>
+		<pre>
+			<code><mark class="comment">&lt;!-- подтянуть элемент с данными --&gt;</mark></code>
+			<code>{capture assign=_data}{literal}{"id":"123"}{/literal}{/capture}</code>
+			<code>{e block="b-popup-container" name="trigger"</code>
+			<code>	tag="a" data=$_data}</code>
+			<code><mark class="comment">&lt;!-- подмена контента --&gt;</mark></code>
+			<code>{$content->replace($content->getArrayCopy() + ['asdasd'])}</code>
+			<code><mark class="comment">&lt;!-- перспективы --&gt;</mark></code>
+			<code>{$content->filter('b-text:first')}</code>
+			<code>{$content->filter('b-rampage:nth-child(2n+1)')}</code>
+		</pre>
+	</div></section>
+
+	<section class="slide cover"><div>
+		<h2>Вопросы?</h2>
+		<img src="./pictures/food/orange-pumpkin.jpg" alt="" />
+	</div></section>
+
 	<section class="slide"><div>
 		<header>
 			<h2>Блоки, модули и веб-интерфейсы</h2>
@@ -367,8 +619,7 @@
 		<p>Алексей Ярошевич, Dalee Digital Agency</p>
 		<ul>
 			<li><a href="http://twitter.com/yaroshevich">@qfox</a></li>
-			<li><a href="http://qfox.ru">qfox.ru</a></li>
-			<li><a href="mailto:zxqfox@gmail.com">zxqfox@gmail.com</a></li>
+			<li><a href="mailto:qfox@ya.ru">qfox@ya.ru</a></li>
 		</ul>
 		<p>Фотографии: <a href="http://bit.ly/fdscp">Carl Warner</a></p>
 		<p>Презентация: <a href="http://shows.dev.dalee.ru/intro-to-bem/">shows.dev.dalee.ru/intro-to-bem</a></p>

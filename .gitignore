@@ -1,3 +1,4 @@
 *.sublime-*
 .DS_*
 ._*
+.sass-cache

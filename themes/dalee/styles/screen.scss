@@ -501,6 +501,12 @@ a {
 					visibility:visible;
 					}
 				}
+			//
+			&.generic:after {
+				@media (max-width:$break) {
+					visibility: hidden;
+					}
+				}
 			// Notes
 			footer {
 				display:block;
