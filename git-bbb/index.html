@@ -26,10 +26,18 @@
 			line-height:64px;
 			font-size:50px;
 			}
+
 		.cover h2 {
 			color:white;
 			text-shadow:1px 1px 2px black;
 			}
+
+		.slide h2 {
+			margin-bottom: 17px;
+		}
+		.slide h3 {
+			margin-bottom: 12px;
+		}
 
 		.last-state-toggler { visibility: hidden; }
 		.last-state div { color: #999; }
@@ -40,6 +48,21 @@
 		}
 		.slide img.one {
 			width:100%;
+		}
+
+		.slide.cover img,
+		.slide.generic img {
+			max-width: 100%;
+			max-height: 100%;
+		}
+		.slide pre code {
+			line-height: 32px;
+			font-size: 22px;
+			}
+		@media screen {
+			.list .generic.slide:after {
+				content:'';
+			}
 		}
 
 		.slide>.viewport {
@@ -81,14 +104,27 @@
 				margin-right: 3%;
 				}
 				.columns>div>img {
-					width: 100%;
-					border: 1px dotted rgba(0, 0, 0, 0.5);
+					/*width: 100%;*/
+					/*border: 1px dotted rgba(0, 0, 0, 0.5);*/
 					}
 
-		.slide pre code {
-			line-height: 32px;
-			font-size: 22px;
-			}
+		.finder-window {
+			-webkit-box-shadow: 0px 2px 15px 0px rgba(50, 50, 50, 0.75);
+			-moz-box-shadow:    0px 2px 15px 0px rgba(50, 50, 50, 0.75);
+			box-shadow:         0px 2px 15px 0px rgba(50, 50, 50, 0.75);
+			max-height: 360px;
+			border-radius: 3px;
+			position: absolute;
+		}
+		.finder-window + .finder-window {
+			-webkit-box-shadow: none;
+			-moz-box-shadow:    none;
+			box-shadow:         none;
+		}
+		.image-in-place {
+			margin:-15px 0 0 -50px;
+			position: absolute;
+		}
 	</style>
 </head>
 <body class="list">
@@ -105,9 +141,12 @@
 		</header>
 	</div></section>
 
-	<section class="slide cover"><div>
-		<h2>Мир без VCS</h2>
-		<img src="pictures/stage1.jpg" alt="" />
+	<section class="slide"><div>
+		<h2>We have better technology now</h2>
+		<h3>&nbsp;</h3>
+		<blockquote>If you are using Subversion, stop it. Just stop. Subversion = Leeches.<br/>
+		Mercurial and Git = Antibiotics. We have better technology now.</blockquote>
+		<a href="http://www.joelonsoftware.com/items/2010/03/17.html" title="Distributed Version Control is here to stay, baby. by Joel Spolsky">Joel Spolsky</a>
 	</div></section>
 
 	<section class="slide cover"><div>
@@ -115,11 +154,304 @@
 		<img src="pictures/stage1.jpg" alt="" />
 	</div></section>
 
+	<section class="slide"><div>
+		<h2>Мир без VCS</h2>
+		<h3>Резервные копии</h3>
+		<img class="finder-window" src="i/slide1.png" />
+		<img class="finder-window next" src="i/slide2.png" />
+	</section>
 
+	<section class="slide"><div>
+		<h2>Мир без VCS</h2>
+		<h3>Описание работы над проектом</h3>
+		<img class="finder-window" src="i/slide3.png" />
+	</section>
+
+	<section class="slide"><div>
+		<h2>Мир без VCS</h2>
+		<h3>Описание работы над проектом</h3>
+		<pre>
+			<code>00-init-project</code>
+			<code>- страничка index <mark>/vasya, 19.01</mark></code>
+			<code>01-hot-fixes</code>
+			<code>- исправлены опечатки и баг в шапке <mark>/vasya, 21.01</mark></code>
+			<code>02-release</code>
+			<code>- исправлен блок контактов <mark>/senya, 22.01</mark></code>
+			<code>01-00-feature-by-me</code>
+			<code>- начало работы над правой колонкой <mark>/vasya, 22.01</mark></code>
+		</pre>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Мир без VCS</h2>
+		<h3>Оптимизация хранения</h3>
+		<ul>
+			<li class="next">Храним только изменившиеся файлы</li>
+			<li class="next">Отделяем файлы от мета-данных<ul>
+				<li class="next">дерево проекта</li>
+				<li class="next">дерево изменений</li>
+			</ul></li>
+		</ul>
+		<div class="next">
+			<blockquote>«Ничто не облагораживает человека больше труда. Без труда<br/>не может человек соблюсти свое человеческое достоинство»</blockquote>
+			<p class="note">Толстой Л.Н.</p>
+		</div>
+	</section>
+
+	<section class="slide"><div>
+		<h2>Мир без VCS</h2>
+		<h3>Оптимизация хранения: изменившиеся файлы</h3>
+		<div class="columns"><div>
+			<pre class="next">
+				<code>11-blog-comments/</code>
+				<code>  index/</code>
+				<code>    index.html</code>
+				<code>    index.css</code>
+				<code>    index.js</code>
+				<code>  blog/</code>
+				<code>    <mark>blog.html</mark></code>
+				<code>    <mark>blog.css</mark></code>
+				<code>    <mark>blog.js</mark></code>
+				<code>  lib/</code>
+				<code>    jquery.js</code>
+			</pre>
+		</div><div>
+			<pre class="next">
+				<code>12-right-block-fixes/</code>
+				<code>  index/</code>
+				<code>    <mark>index.html</mark></code>
+				<code>    index.css</code>
+				<code>    <mark>index.js</mark></code>
+				<code>  blog/</code>
+				<code>    blog.html</code>
+				<code>    blog.css</code>
+				<code>    blog.js</code>
+				<code>  lib/</code>
+				<code>    jquery.js</code>
+			</pre>
+		</div></div>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Мир без VCS</h2>
+		<h3>Оптимизация хранения: изменившиеся файлы</h3>
+		<div class="columns"><div>
+			<pre>
+				<code>11-blog-comments/</code>
+				<code>  <strike>index/</strike></code>
+				<code>    <strike>index.html</strike></code>
+				<code>    <strike>index.css</strike></code>
+				<code>    <strike>index.js</strike></code>
+				<code>  blog/</code>
+				<code>    <mark>blog.html</mark></code>
+				<code>    <mark>blog.css</mark></code>
+				<code>    <mark>blog.js</mark></code>
+				<code>  <strike>lib/</strike></code>
+				<code>    <strike>jquery.js</strike></code>
+			</pre>
+		</div><div>
+			<pre>
+				<code>12-right-block-fixes/</code>
+				<code>  index/</code>
+				<code>    <mark>index.html</mark></code>
+				<code>    <strike>index.css</strike></code>
+				<code>    <mark>index.js</mark></code>
+				<code>  <strike>blog/</strike></code>
+				<code>    <strike>blog.html</strike></code>
+				<code>    <strike>blog.css</strike></code>
+				<code>    <strike>blog.js</strike></code>
+				<code>  <strike>lib/</strike></code>
+				<code>    <strike>jquery.js</strike></code>
+			</pre>
+		</div></div>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Мир без VCS</h2>
+		<h3>Оптимизация хранения: мета отдельно</h3>
+		<div class="columns"><div>
+			<pre class="next">
+				11-blog-comments/changes.meta
+				<code><mark>file</mark>        <mark>dir</mark></code>
+				<code>blog.html    blog/</code>
+				<code>blog.css     blog/</code>
+				<code>blog.js      blog/</code>
+			</pre>
+		</div><div>
+			<pre class="next">
+				12-right-block-fixes changes.meta
+				<code><mark>file</mark>       <mark>dir</mark></code>
+				<code>index.html  index/</code>
+				<code>index.js    index/</code>
+			</pre>
+		</div></div>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Мир без VCS</h2>
+		<h3>Оптимизация хранения: мета отдельно</h3>
+		<div class="columns"><div class="next">
+			дерево проекта
+			<pre>
+				<code>11-blog-comments/</code>
+				<code>  changes.meta</code>
+				<code>  tree.meta</code>
+				<code>  blog.html</code>
+				<code>  blog.css</code>
+				<code>  blog.js</code>
+			</pre>
+		</div><div class="next">
+			дерево изменений
+			<pre>
+				<code>log.txt</code>
+				<code>patches/</code>
+				<code>  1da334942c6b1391e8864a55439ef64c</code>
+				<code>  205b39d405235734dcb7ea588c3f9578</code>
+				<code>  d449d5fb18e362adeabff94486f2c473</code>
+				<code>  3d65908c0242de16c7666e99750341f7</code>
+				<code>  7954e4c4eb834249b1ead0f53ec918a5</code>
+				...
+			</pre>
+		</div></div>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Мир без VCS</h2>
+		<h3>История изменений</h3>
+		<img src="./i/slide4-hashtree.png" alt="" />
+	</div></section>
+
+	<section class="slide shout grow"><div>
+		<h2><a href="http://git-scm.com/">GIT</a></h2>
+	</div></section>
 
 	<section class="slide cover"><div>
-		<h2>Вопросы?</h2>
-		<img src="./pictures/food/orange-pumpkin.jpg" alt="" />
+		<h2>Работа с графом истории</h2>
+		<img src="./pictures/stage2.jpg" alt="" />
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Работа с графом истории</h2>
+		<h3>Галопом по европам</h3>
+		<div class="columns"><div>
+			<pre>
+				<code class="next">echo 'new line' >> myfile</code>
+				<code class="next">git add myfile</code>
+				<code class="next">git commit -m "<mark>фикс прав...</mark>"</code>
+			</pre>
+		</div><div>
+			<img src="./i/slide5-stage1.png" class="image-in-place" alt="">
+			<img src="./i/slide5-stage2.png" class="image-in-place next" alt="">
+			<img src="./i/slide5-stage3.png" class="image-in-place next" alt="">
+		</div></div>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Работа с графом истории</h2>
+		<h3>Галопом по европам</h3>
+		<div class="columns"><div>
+			<pre>
+				<code>echo 'new line' >> myfile</code>
+				<code>git add myfile</code>
+				<code>git commit -m "фикс прав..."</code>
+				<code class="next">git branch <mark>my-branch</mark></code>
+				<code class="next">git checkout <mark>my-branch</mark></code>
+				<div class="next">
+					<code>echo 'new line' >> myfile &amp;&amp;</code>
+					<code>  git commit -a -m \</code>
+					<code>    "<mark>очень нужная фича</mark>"</code>
+				</div>
+			</pre>
+		</div><div>
+			<img src="./i/slide5-stage4.png" class="image-in-place" alt="">
+			<img src="./i/slide5-stage5.png" class="image-in-place next" alt="">
+			<img src="./i/slide5-stage6.png" class="image-in-place next" alt="">
+			<img src="./i/slide5-stage7.png" class="image-in-place next" alt="">
+		</div></div>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Работа с графом истории</h2>
+		<h3>Сливаем ветки</h3>
+		<div class="columns"><div>
+			<pre>
+				<code>git checkout master</code>
+				<code class="next">git merge my-branch</code>
+			</pre>
+		</div><div>
+			<img src="./i/slide5-stage8.png" class="image-in-place" alt="">
+			<img src="./i/slide5-stage9.png" class="image-in-place next" alt="">
+			<img src="./i/slide5-stage10.png" class="image-in-place next" alt="">
+		</div></div>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Работа с графом истории</h2>
+		<h3>Сливаем ветки</h3>
+		<div class="columns"><div>
+			<pre>
+				<code>git fetch -p</code>
+				<code>git checkout my-branch</code>
+				<code class="next">git rebase origin/master</code>
+			</pre>
+		</div><div>
+			<img src="./i/slide5-stage11.png" class="image-in-place" alt="">
+			<img src="./i/slide5-stage12.png" class="image-in-place next" alt="">
+			<img src="./i/slide5-stage13.png" class="image-in-place next" alt="">
+		</div></div>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Работа с графом истории</h2>
+		<h3>История измений</h3>
+		<pre>
+			<code>$ <mark>git log --format=oneline -2</mark></code>
+			<code>ca0ef56  Merge branch 'opengraph-inclusion-fix' into 'master'</code>
+			<code>3369f8f  Merge branch 'topline-main-nolink' into 'master'</code>
+			<code>$ <mark>git reflog -2</mark></code>
+			<code>ca0ef56 HEAD@{0}: checkout: moving from production to master</code>
+			<code>ca0ef56 HEAD@{1}: rebase finished: returning to refs/heads/pro...</code>
+			<code>$ <mark>git hist -1</mark></code>
+			<code>*   ca0ef56 2014-04-12 |  Merge branch 'opengraph-inclusion-fix'</code>
+			<code> into 'master' (HEAD, origin/production, production, master)</code>
+			<code> [Alexey Yaroshevich]</code>
+		</pre>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Работа с удаленным репозиторием</h2>
+		<h3>Команды</h3>
+		<pre>
+			<code>git remote [show|add|rm]</code>
+			<code>git fetch [remote] [-p] [--all] [--tags]</code>
+			<code>git push [remote [branch]]</code>
+			<code>git pull [--rebase] [remote [branch]]</code>
+		</pre>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Работа с удаленным репозиторием</h2>
+		<div class="columns"><div>
+			<pre>
+				<code>git checkout my-branch</code>
+				<code class="next">git pull --rebase origin master</code>
+				<code class="next">git push origin my-branch</code>
+			</pre>
+		</div><div style="padding-top:40px;margin-left:-20px;">
+			<img src="./i/slide5-stage14.png" class="image-in-place" alt="">
+			<img src="./i/slide5-stage15.png" class="image-in-place next" alt="">
+			<img src="./i/slide5-stage16.png" class="image-in-place next" alt="">
+		</div></div>
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Не рассказал</h2>
+		<ul>
+			<li class="next"><a href="http://danielkummer.github.io/git-flow-cheatsheet/">git-flow</a></li>
+			<li class="next">git remote [...]</li>
+			<li class="next">пре- и постхуки</li>
+			<li class="next note">et cetera...</li>
+		</ul>
 	</div></section>
 
 	<section class="slide"><div>
@@ -133,9 +465,30 @@
 		</ul>
 		<p>Презентация: <a href="http://shows.dev.dalee.ru/git-bbb/">shows.dev.dalee.ru/git-bbb</a></p>
 	</div></section>
+
+	<section class="slide cover"><div>
+		<h2>Вопросы?</h2>
+		<img src="./pictures/stage5.jpg" alt="" />
+	</div></section>
+
+	<section class="slide"><div>
+		<h2>Ссылки</h2>
+		<div class="columns"><div style="flex:1.8">
+			<ul>
+				<li><a href="http://bit.ly/1j0JRC6"><span class="note">bit.ly/1j0JRC6</span></a> Think Like (a) Git</li>
+				<li><a href="http://bit.ly/1ipGIhf"><span class="note">bit.ly/1ipGIhf</span></a> Git For Ages 4 And Up</li>
+				<li><a href="http://bit.ly/1j0Nish"><span class="note">bit.ly/1j0Nish</span></a>
+					<span>Git — Распределённые<br/> рабочие процессы</span></li>
+				<li><a href="http://bit.ly/1gJgRjP"><span class="note">bit.ly/1gJgRjP</span></a> gurugray/git-trainer</li>
+				<li><a href="http://bit.ly/1qMxnml"><span class="note">bit.ly/1qMxnml</span></a> git-flow cheatsheet</li>
+			</ul>
+		</div><div>
+			<img style="margin:-25px -25px 0 0px;" src="./i/slide7-links.gif" alt="">
+		</div></div>
+	</div></section>
+
 	<p class="badge"><a href="https://github.com/shower/shower">Powered by Shower</a></p>
 	<div class="progress"><div></div></div>
-
 
 	<script>
 		(function () {
