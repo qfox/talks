@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+	<title>Git — кустики, веточки, березки — qfox@ya.ru</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=1274, user-scalable=no">
+	<link rel="stylesheet" href="../themes/dalee/styles/screen.css">
+	<style>
+		#Cover h2 {
+			position:absolute;
+			left:103px;
+			color:white;
+			letter-spacing:1px;
+			text-shadow:1px 1px 2px black;
+			font-size:64px;
+			}
+		#Cover h3 {
+			position:absolute;
+			top:297px;
+			left:0;
+			padding:29px 0 0 104px;
+			width:356px;
+			height:224px;
+			background:rgba(0, 0, 0, 0.4);
+			color:#FFF;
+			line-height:64px;
+			font-size:50px;
+			}
+		.cover h2 {
+			color:white;
+			text-shadow:1px 1px 2px black;
+			}
+
+		.last-state-toggler { visibility: hidden; }
+		.last-state div { color: #999; }
+		.last-state h3, .last-state .last { color: #000; }
+
+		.slide i {
+			color: #333;
+		}
+		.slide img.one {
+			width:100%;
+		}
+
+		.slide>.viewport {
+			z-index:0;
+			}
+			.slide>.viewport>h2 {
+				background: rgba(255, 255, 255, 0.5);
+				outline: 50px solid rgba(255, 255, 255, 0.5);
+				position: absolute;
+				z-index: 10;
+				}
+			.slide>.viewport>.scrolled {
+				display: flex;
+				overflow-y: auto;
+				height: 100%;
+				}
+				.slide>.viewport>.scrolled .half {
+					flex: 1 1;
+					width: 45%;
+					margin-right: 4%;
+					}
+				.slide>.viewport>.scrolled .half img {
+					width: 100%;
+					border: 1px dotted rgba(0, 0, 0, 0.5);
+					}
+
+		.columns {
+			display:flex;
+			height:100%;
+			}
+		.columns.scrolled {
+			overflow-y: auto;
+			height: 75%;
+			border-bottom: 50px solid transparent;
+			}
+			.columns>div {
+				flex: 1;
+				width: 46%;
+				margin-right: 3%;
+				}
+				.columns>div>img {
+					width: 100%;
+					border: 1px dotted rgba(0, 0, 0, 0.5);
+					}
+
+		.slide pre code {
+			line-height: 32px;
+			font-size: 22px;
+			}
+	</style>
+</head>
+<body class="list">
+	<header class="caption">
+		<h1>Git — кустики, веточки, березки</h1>
+		<p><a href="http://qfox.ru/">Алексей Ярошевич</a>, <a href="http://dalee.ru">Dalee Digital Agency</a></p>
+	</header>
+
+	<section class="slide generic" id="Cover"><div>
+		<img src="pictures/cover.jpg" alt="">
+		<header>
+			<h2>Git — кустики, веточки, березки</h2>
+			<h3>Сажаем,<br/>выращиваем,<br/>наслаждаемся</h3>
+		</header>
+	</div></section>
+
+	<section class="slide cover"><div>
+		<h2>Мир без VCS</h2>
+		<img src="pictures/stage1.jpg" alt="" />
+	</div></section>
+
+	<section class="slide cover"><div>
+		<h2>Мир без VCS</h2>
+		<img src="pictures/stage1.jpg" alt="" />
+	</div></section>
+
+
+
+	<section class="slide cover"><div>
+		<h2>Вопросы?</h2>
+		<img src="./pictures/food/orange-pumpkin.jpg" alt="" />
+	</div></section>
+
+	<section class="slide"><div>
+		<header>
+			<h2>Git — кустики, веточки, березки</h2>
+		</header>
+		<p>Алексей Ярошевич, Dalee Digital Agency</p>
+		<ul>
+			<li><a href="http://twitter.com/yaroshevich">@qfox</a></li>
+			<li><a href="mailto:qfox@ya.ru">qfox@ya.ru</a></li>
+		</ul>
+		<p>Презентация: <a href="http://shows.dev.dalee.ru/git-bbb/">shows.dev.dalee.ru/git-bbb</a></p>
+	</div></section>
+	<p class="badge"><a href="https://github.com/shower/shower">Powered by Shower</a></p>
+	<div class="progress"><div></div></div>
+
+
+	<script>
+		(function () {
+			var withLastState = document.querySelectorAll('.slide.with-last-state');
+			var i, l, div;
+			for (i = 0, l = withLastState.length; i < l; i++) {
+				div = document.createElement('div');
+				div.setAttribute('class', 'next last-state-toggler');
+				withLastState[i].appendChild(div);
+				withLastState[i].classList.remove('with-last-state')
+			}
+		}());
+	</script>
+	<script src="../shower/shower.js"></script>
+	<script>
+		(function () {
+			shower.__turnNextSlide = shower._turnNextSlide;
+			shower._turnNextSlide = function (cb) {
+			var slide = shower.slideList[shower.getCurrentSlideNumber()];
+				shower.__turnNextSlide(function () {
+					var slideElement = document.getElementById(slide.id);
+					var toggler = slideElement.querySelectorAll('.next.last-state-toggler.active')[0];
+					if (toggler) {
+						slideElement.removeChild(toggler);
+						slideElement.classList.add('last-state');
+					}
+
+					if (typeof cb === 'function') {
+						cb();
+					}
+				});
+			};
+		}());
+	</script>
+	<!-- Copyright © 2013 Alexej Yaroshevich — shows.dev.dalee.ru -->
+</body>
+</html>
