@@ -151,7 +151,8 @@ a {
 		color:#000;
 		tab-size:4;
 		line-height:1;
-		font-family:'PT Mono', monospace;
+		font-family:FiraCode, 'PT Mono', monospace;
+		font-variant-ligatures: contextual common-ligatures;
 		}
 	// Quote
 	blockquote {
