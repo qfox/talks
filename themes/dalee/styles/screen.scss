@@ -9,9 +9,14 @@
 
 body {
 	counter-reset:slide;
-	font:25px/2 '#{$default_font_family}', sans-serif;
+	font:25px/2 'PT Sans', sans-serif;
+	@media print {
+		text-rendering:geometricPrecision;
+		}
 	}
 a {
+	color:$blue;
+	@include underline(currentColor, 0.09);
 	text-decoration:none;
 	}
 
@@ -23,23 +28,14 @@ a {
 	color:#3C3D40;
 	text-shadow:0 1px 1px #8D8E90;
 	h1 {
-		font:bold 50px/1 '#{$h1_font_family}', sans-serif;
+		font:bold 50px/1 'PT Sans Narrow', sans-serif;
 		}
 	a {
-		color:$blue;
 		text-shadow:0 -1px 1px #1F3F60;
-		text-decoration:none;
+		background:none;
 		&:hover {
 			color:lighten($blue, 5%);
 			}
-		}
-	}
-
-.generic {
-	h2 {
-		top:145px;
-		letter-spacing:1px;
-		left:103px;
 		}
 	}
 
@@ -75,6 +71,12 @@ a {
 			}
 		}
 
+// Live Region
+// -------------------------------
+.live-region {
+	display:none;
+	}
+
 // Slide
 // -------------------------------
 .slide {
@@ -87,6 +89,9 @@ a {
 	-webkit-text-size-adjust:none;
 	-moz-text-size-adjust:none;
 	-ms-text-size-adjust:none;
+	@media print {
+		page-break-before:always;
+		}
 	// Number
 	&:after {
 		position:absolute;
@@ -112,10 +117,6 @@ a {
 		width:$width - $sides * 2;
 		height:$height - $top;
 		}
-	// Debug
-	.debug & {
-		background:#FFF url(../images/grid-#{$ratio}.svg) no-repeat;
-		}
 	}
 
 // Elements
@@ -125,7 +126,7 @@ a {
 	h2 {
 		margin:0 0 37px;
 		color:#666;
-		font:bold 50px/1 '#{$h2_font_family}', sans-serif;
+		font:bold 50px/1 'PT Sans Narrow', sans-serif;
 		}
 	// Text
 	p {
@@ -134,25 +135,38 @@ a {
 	p.note {
 		color:#999;
 		}
-	a {
-		border-bottom:0.1em solid;
-		color:$blue;
-		}
 	b, strong {
 		font-weight:bold;
 		}
 	i, em {
 		font-style:italic;
 		}
-	kbd, code, samp {
+	code, kbd, mark, samp {
 		padding:3px 8px;
-		border-radius:3px;
-		background:$yellow;
+		border-radius:8px;
 		color:#000;
-		tab-size:4;
+		}
+	kbd, code, samp {
+		background:rgba(#000, 0.07);
+		color:#000;
 		line-height:1;
+		font-family:'PT Mono', monospace;
 		font-family:FiraCode, 'PT Mono', monospace;
 		font-variant-ligatures: contextual common-ligatures;
+		}
+	mark {
+		background:$yellow;
+		}
+	sub, sup {
+		position: relative;
+		line-height:0;
+		font-size:75%;
+		}
+	sub {
+		bottom:-0.25em;
+		}
+	sup {
+		top:-0.5em;
 		}
 	// Quote
 	blockquote {
@@ -172,7 +186,7 @@ a {
 		}
 	// Lists
 	ol, ul {
-		margin:0 0 20px;
+		margin:0 0 50px;
 		counter-reset:list;
 		li {
 			text-indent:-2em;
@@ -183,8 +197,7 @@ a {
 				text-align:right;
 				}
 			}
-		ol,
-		ul {
+		ol, ul {
 			margin:0 0 0 2em;
 			}
 		}
@@ -204,18 +217,17 @@ a {
 		padding:1px 0 0;
 		counter-reset:code;
 		white-space:normal;
+		tab-size:4;
 		code {
 			display:block;
 			padding:0;
 			background:none;
 			white-space:pre;
-			line-height:50px;
+			line-height:2;
 			&:before {
 				position:absolute;
-				margin:0 0 0 -110px;
-				width:100px;
+				margin-left:-50px;
 				color:#BBB;
-				text-align:right;
 				counter-increment:code;
 				content:counter(code, decimal-leading-zero)'.';
 				}
@@ -223,16 +235,11 @@ a {
 				content:'';
 				}
 			}
+		// Mark
 		mark {
-			padding:3px 8px;
-			border-radius:3px;
-			background:#F7FCA0;
-			color:#000;
-			font-style:normal;
 			&.important {
 				background:#C00;
 				color:#FFF;
-				font-weight:normal;
 				}
 			&.comment {
 				padding:0;
@@ -248,7 +255,7 @@ a {
 		border-collapse:collapse;
 		border-spacing:0;
 		th, td {
-			background:url($dot) 0 100% repeat-x;
+			@include underline(#BBB, 0.055);
 			}
 		th {
 			text-align:left;
@@ -268,29 +275,6 @@ a {
 			visibility:hidden;
 			}
 		}
-	// Generic page
-	&.generic {
-		z-index:1;
-		&:after {
-			padding:0;
-			width:auto;
-			height:auto;
-			line-height:0;
-			content:url(../images/logo.png);
-		}
-		@mixin cover {
-			img, svg, video,
-			object, canvas, iframe {
-				@content;
-				}
-			}
-		@include cover {
-			position:absolute;
-			top:0;
-			left:0;
-			z-index:-1;
-			}
-	}
 	// Cover
 	&.cover {
 		background:#000;
@@ -330,7 +314,6 @@ a {
 		}
 	// Shout
 	&.shout {
-		background-image:none;
 		h2 {
 			position:absolute;
 			top:50%;
@@ -340,6 +323,9 @@ a {
 			line-height:1;
 			font-size:150px;
 			transform:translateY(-50%);
+			a {
+				@include underline(currentColor, 0.11);
+				}
 			}
 		}
 	// Place
@@ -380,10 +366,16 @@ a {
 		bottom:-$height;
 		z-index:1;
 		display:none;
-		padding:20px 120px;
+		padding:20px 120px 4px;
 		background:$yellow;
 		box-shadow:0 0 0 2px desaturate($yellow, 20%) inset;
 		transition:bottom 0.3s;
+		p {
+			margin:0 0 16px;
+			}
+		mark {
+			background:rgba(#FFF, 0.7);
+			}
 		}
 	&:hover footer {
 		bottom:0;
@@ -428,7 +420,7 @@ a {
 				box-shadow:
 					0 0 30px rgba(#000, 0.005),
 					0 20px 50px rgba($grey, 0.6);
-				border-radius:1px;
+				border-radius:2px;
 				content:'';
 				transform-origin:0 0;
 				transform:scale(2);
@@ -502,12 +494,6 @@ a {
 					visibility:visible;
 					}
 				}
-			//
-			&.generic:after {
-				@media (max-width:$break) {
-					visibility: hidden;
-					}
-				}
 			// Notes
 			footer {
 				display:block;
@@ -524,6 +510,22 @@ a {
 		width:$width;
 		height:$height;
 		background:#000;
+		// Debug
+		&.debug:after {
+			position:absolute;
+			top:0;
+			right:0;
+			bottom:0;
+			left:0;
+			z-index:2;
+			background:url(../images/grid-#{$ratio}.svg) no-repeat;
+			content:'';
+			}
+		// Live Region
+		.live-region {
+			@include offscreen;
+			display:block;
+			}
 		// Slide
 		.slide {
 			position:absolute;
@@ -566,15 +568,22 @@ a {
 			position:absolute;
 			right:0;
 			bottom:0;
-			left:-10px;
+			left:0;
+			overflow:hidden;
+			height:10px;
 			z-index:1;
 			div {
-				padding-left:10px;
+				position:absolute;
+				left:-20px;
+				top:-10px;
 				width:0;
-				height:10px;
-				background:url(../images/progress.svg) 100% 0 no-repeat;
-				background-clip:content-box;
+				height:0;
+				border:10px solid transparent;
+				border-bottom-color:$logocolor;
 				transition:width 0.2s linear;
+				&[style*='100%'] {
+					left:0;
+					}
 				}
 			}
 		}
