@@ -1,4 +1,4 @@
-*.sublime-*
-.DS_*
 ._*
 .sass-cache
+
+/node_modules

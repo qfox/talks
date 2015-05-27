@@ -1,0 +1,27 @@
+{
+  "name": "talks",
+  "version": "0.0.1",
+  "description": "My talks",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:zxqfox/talks.git"
+  },
+  "keywords": [
+    "talks",
+    "slides"
+  ],
+  "author": "Alexej Yaroshevich <zxqfox@gmail.com> (http://github.com/zxqfox)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zxqfox/talks/issues"
+  },
+  "homepage": "https://github.com/zxqfox/talks",
+  "devDependencies": {
+    "shower-core": "^1.0.7",
+    "shower-ribbon": "^1.0.11"
+  }
+}

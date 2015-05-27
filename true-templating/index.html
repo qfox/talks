@@ -1,0 +1,839 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+    <title>Шаблонизация, как дедушка завещал — qfox@ya.ru</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1274, user-scalable=no">
+    <link rel="stylesheet" href="../themes/dalee/styles/screen.css">
+    <link rel="stylesheet" href="../highlight/highlight.css">
+    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
+    <style>
+        #Cover h2 {
+            position:absolute;
+            left:103px;
+            color:white;
+            letter-spacing:2px;
+            text-shadow:1px 1px 2px black;
+            font-size:80px;
+            }
+        #Cover h3 {
+            position:absolute;
+            top:297px;
+            left:0;
+            padding:29px 50px 29px 104px;
+            background:rgba(0, 0, 0, 0.4);
+            color:#FFF;
+            line-height:64px;
+            font-size:50px;
+            }
+        .cover h2 {
+            color:white;
+            text-shadow:1px 1px 2px black;
+            }
+        h3 {
+            margin-top: -16px;
+            padding-bottom: 16px;
+            font: 500 35px/1 "PT Sans Narrow",sans-serif;
+            color: #644;
+            }
+        .recovered {
+            background: rgba(50, 50, 50, 0.4);
+            outline: 40px solid rgba(50, 50, 50, 0.4);
+            outline-width: 120px;
+            z-index: 10;
+            }
+
+        .last-state-toggler { visibility: hidden; }
+        .last-state div { color: #999; }
+        .last-state h3, .last-state .last { color: #000; }
+
+        .slide i {
+            color: #333;
+        }
+        .slide img.one {
+            width:100%;
+        }
+
+        .slide>.viewport {
+            z-index:0;
+            }
+            .slide>.viewport>h2 {
+                background: rgba(255, 255, 255, 0.5);
+                outline: 50px solid rgba(255, 255, 255, 0.5);
+                position: absolute;
+                z-index: 10;
+                }
+            .slide>.viewport>.scrolled {
+                display: flex;
+                overflow-y: auto;
+                height: 100%;
+                }
+                .slide>.viewport>.scrolled .half {
+                    flex: 1 1;
+                    width: 45%;
+                    margin-right: 4%;
+                    }
+                .slide>.viewport>.scrolled .half img {
+                    width: 100%;
+                    border: 1px dotted rgba(0, 0, 0, 0.5);
+                    }
+
+        .columns {
+            display:flex;
+            height:100%;
+            }
+        .columns.scrolled {
+            overflow-y: auto;
+            height: 75%;
+            border-bottom: 50px solid transparent;
+            }
+            .columns>div {
+                flex: 1;
+                width: 46%;
+                margin-right: 3%;
+                }
+                .columns>div>img {
+                    width: 100%;
+                    border: 1px dotted rgba(0, 0, 0, 0.5);
+                    }
+
+        .slide pre code {
+            line-height: 32px;
+            font-size: 22px;
+            }
+        .slide pre.smaller code {
+            line-height: 26px;
+            font-size: 18px;
+            }
+        .smaller {
+            font-size: 0.9em;
+        }
+        td, th {
+            padding: 0 7px;
+        }
+        .slide .glued {
+            margin-top: -30px;
+        }
+
+        .v_1, .v_1 .hljs-tag, .v_1 .hljs-string, .v_1 .hljs-variable, .v_1 .hljs-value, .v_1 .hljs-title, .v_1 .hljs-comment { color: #771; font-weight: bold; }
+        .v_2, .v_2 .hljs-tag, .v_2 .hljs-string, .v_2 .hljs-variable, .v_2 .hljs-value, .v_2 .hljs-title, .v_2 .hljs-comment { color: #177; font-weight: bold; }
+        .v_3, .v_3 .hljs-tag, .v_3 .hljs-string, .v_3 .hljs-variable, .v_3 .hljs-value, .v_3 .hljs-title, .v_3 .hljs-comment { color: #717; font-weight: bold; }
+        .v_4, .v_4 .hljs-tag, .v_4 .hljs-string, .v_4 .hljs-variable, .v_4 .hljs-value, .v_4 .hljs-title, .v_4 .hljs-comment { color: #119; font-weight: bold; }
+        .v_5, .v_5 .hljs-tag, .v_5 .hljs-string, .v_5 .hljs-variable, .v_5 .hljs-value, .v_5 .hljs-title, .v_5 .hljs-comment { color: #191; font-weight: bold; }
+        .v_6, .v_6 .hljs-tag, .v_6 .hljs-string, .v_6 .hljs-variable, .v_6 .hljs-value, .v_6 .hljs-title, .v_6 .hljs-comment { color: #911; font-weight: bold; }
+
+        .brief {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            padding: 29px 104px 29px 50px;
+            background:rgba(0, 0, 0, 0.4);
+            color:#FFF;
+        }
+        .brief a.img {
+            display: inline-block;
+        }
+        .brief a.img~a.img {
+            margin-left:30px;
+        }
+        .brief a {
+            color: white;
+            background: none;
+        }
+        .brief .fa::before {
+            padding-right: 10px;
+            background: none;
+        }
+        .brief .contacts {
+            line-height: 1.5;
+            margin: 0 0 50px;
+        }
+        .brief .speaker {
+            font-size: larger;
+        }
+        .slide.cover .brief img {
+            position: static;
+            top: inherit;
+            left: inherit;
+            box-sizing: content-box;
+            border: 2px solid white;
+            border-radius: 2px;
+            outline: 2px solid rgba(255,255,255,0.5);
+            width: 120px;
+            margin: 0 0px -16px 0;
+        }
+
+    </style>
+    <script>
+        (function () {
+            var withLastState = document.querySelectorAll('.slide.with-last-state');
+            var i, l, div;
+            for (i = 0, l = withLastState.length; i < l; i++) {
+                div = document.createElement('div');
+                div.setAttribute('class', 'next last-state-toggler');
+                withLastState[i].appendChild(div);
+                withLastState[i].classList.remove('with-last-state');
+            }
+        }());
+    </script>
+    <script src="../node_modules/shower-core/shower.min.js"></script>
+    <script>
+        (function () {
+            shower.__turnNextSlide = shower._turnNextSlide;
+            shower._turnNextSlide = function (cb) {
+            var slide = shower.slideList[shower.getCurrentSlideNumber()];
+                shower.__turnNextSlide(function () {
+                    var slideElement = document.getElementById(slide.id);
+                    var toggler = slideElement.querySelectorAll('.next.last-state-toggler.active')[0];
+                    if (toggler) {
+                        slideElement.removeChild(toggler);
+                        slideElement.classList.add('last-state');
+                    }
+
+                    if (typeof cb === 'function') {
+                        cb();
+                    }
+                });
+            };
+        }());
+    </script>
+    <script src="../highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad({languages: ['js', 'javascript']});</script>
+</head>
+<body class="list">
+    <header class="caption">
+        <h1>Шаблонизация, как дедушка завещал</h1>
+        <p><a href="http://qfox.ru/">Алексей Ярошевич</a>, <a href="http://dalee.ru">Dalee Digital Agency</a></p>
+    </header>
+    <section class="slide cover" id="Cover"><div>
+        <img width="100%" src="i/ilich.jpg" alt="Ильич" />
+        <header>
+            <h2>Шаблонизация</h2>
+            <h3>Как<br/>дедушка<br/>завещал</h3>
+        </header>
+        <div class="brief">
+            <p class="speaker">
+                Алексей Ярошевич
+            </p>
+            <p class="contacts">
+                <span class="fa fa-github"></span><a href="http://github.com/zxqfox">@zxqfox</a><br/>
+                <span class="fa fa-twitter"></span><a href="http://twitter.com/yaroshevich">@yaroshevich</a><br/>
+                <span class="fa fa-at"></span><a href="mailto:qfox@ya.ru">qfox@ya.ru</a>
+            </p>
+            <a class="img" href="//moscowjs.ru"><img src="../moscowjs/i/logo.svg" /></a>
+            <a class="img" href="//dalee.ru"><img src="../themes/dalee/images/logo.png" /></a>
+        </div>
+    </div></section>
+
+
+
+    <section class="slide"><div>
+        <h2>План вещания</h2>
+        <ul>
+            <li class="next">Немножко теории<!--, о чем стоит помнить--></li>
+            <li class="next">«Родословная» шаблонизаторов<!-- — возникновение потребности--></li>
+            <li class="next">Веления и предписания<!-- и двухпроходность--></li>
+            <li class="next">Взгляд изнутри<!-- и функциональщина--></li>
+            <li class="next">Идеальный шаблонизатор<!--, его характеристики--></li>
+        </ul>
+    </div></section>
+
+
+
+    <section class="slide cover"><div>
+        <h2>Немножко теории</h2>
+        <img src="i/hi-marks.jpg" width="100%" />
+    </div></section>
+
+    <section class="slide"><div>
+        <blockquote cite="https://medium.com/@qfox/34d55e3b8dfd">
+            <p>Шаблоны — схема преобразования данных из одного формата в другой.</p>
+        </blockquote>
+        <blockquote class="next glued" cite="https://ru.wikipedia.org/wiki/%D0%A4%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D1%8F_%28%D0%BC%D0%B0%D1%82%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0%29">
+            <p>Функция (отображение, оператор, преобразование) — связь между элементами множеств.</p>
+        </blockquote>
+        <p class="next glued">
+            <img style="width:100%" src="https://d262ilb51hltx0.cloudfront.net/max/1600/1*UpM56IsCoCsSzJFYVvUBxQ.jpeg" alt="Схема процесса преобразования" />
+        </p>
+    </div></section>
+
+    <section class="slide"><div>
+        <pre class="javascript">
+            <code>function <span class="v_1">processor</span>(<span class="v_2">template</span>, <span class="v_3">data</span>) { ... };</code>
+            <code>var <span class="v_4">fn</span> = <span class="v_1">processor</span>.bind(undefined, <span class="v_2">template</span>);</code>
+            <code class="next">var <span class="v_4">fn</span> = <span class="v_1">processor</span>.compile(<span class="v_2">template</span>);</code>
+            <code class="next"><span class="v_4">fn</span>(<span class="v_3">data</span>) == <span class="v_1">processor</span>(<span class="v_2">template</span>, <span class="v_3">data</span>); // true</code>
+        </pre>
+        <!-- https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/TempEngGen015.svg/220px-TempEngGen015.svg.png -->
+        <img class="next glued" style="width:100%" src="https://d262ilb51hltx0.cloudfront.net/max/1600/1*x7gxAeY1EI9j0r0KRjGA2w.jpeg" alt="Компиляция и использование шаблона в виде преобразования (функции)" />
+    </div></section>
+
+
+
+    <section class="slide cover"><div>
+        <h2>«Родословная» шаблонизаторов<br/> и их полезности</h2>
+        <img src="i/kern.jpg" width="100%" />
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>«Родословная» шаблонизаторов</h2>
+        <ul>
+            <li>Текстовые препроцессоры <i>(и препроцессоры для кода; C 1972)</i></li>
+            <li class="next">Скриптовые языки <i>(e.g. SmallTalk 1969-1980; Perl 1988; Lua 1993)</i></li>
+            <li class="next">Веб-серверы и CGI <i>(CERN httpd 1990; NCSA HTTPd 1993; Apache 1995)</i></li>
+            <li class="next">Простейшие <i>(PHP/FI 1995; TT2 1996)</i></li>
+            <li class="next">Классические <i>(XSLT 1999; WebMacro/Velocity 1999; Smarty 2000; etc.)</i></li>
+        </ul>
+        <p class="next note">Smarty — шаблонизатор, написанный на бывшем шаблонизаторе.</p>
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Полезности</h2>
+        <ul>
+            <li>Декомпозиция и DRY — разделение кода на куски;</li>
+            <li class="next">отделение view от логики (MVC? не, не слышал);</li>
+            <li class="next">простота и красота — синтаксический «сахар»;</li>
+            <li class="next">«царапки» — защита от дурака;</li>
+            <li class="next">хелперы — вспомогательные методы для вывода.</li>
+        </ul>
+        <p class="next">Как итог: разделение ответственности и новая профессия.</p>
+    </div></section>
+
+    <section class="slide"><div>
+    </div></section>
+
+    <section class="slide cover"><div>
+        <h2 class="recovered">Веления и предписания</h2>
+        <img src="i/mosbattle.jpg" height="100%" />
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Веления или императивный подход</h2>
+        <ul>
+            <li>Представители: Машинные коды, Asm, C, JavaScript;</li>
+            <li class="next">Процесс описывается инструкциями;</li>
+            <li class="next">интенсивно используется присваивание;</li>
+            <li class="next">И <i>исполняется</i> последовательно.</li>
+        </ul>
+        <pre class="js next glued">
+            <code>class Employee extends Person { <span class="next">// Declaration, right?</span> </code>
+            <code>  constructor(name) {</code>
+            <code>    super.constuctor(name);</code>
+            <code>  }</code>
+            <code>}</code>
+        </pre>
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Пример HTML-кода</h2>
+        <pre class="html">
+            <code>&lt;h2 class="<span class="v_1">caption</span>">Heading&lt;/h2></code>
+            <code>&lt;ul class="<span class="v_2">people</span>"></code>
+            <code>  </code>
+            <code>  </code>
+            <code>    &lt;li class="<span class="v_2">people</span>__<span class="v_3">person</span>">John&lt;/li></code>
+            <code>    &lt;li class="<span class="v_2">people</span>__<span class="v_3">person</span>">Malkovich&lt;/li></code>
+            <code>    &lt;li class="<span class="v_2">people</span>__<span class="v_3">person</span> <span class="v_4">last</span>">Doe&lt;/li></code>
+            <code>  </code>
+            <code>&lt;/ul></code>
+        </pre>
+        <p class="note">HTML — формат данных + декларативный язык.</p>
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Шаблон на PHP</h2>
+        <pre class="html">
+            <code>&lt;h2 class="<span class="v_1">caption</span>">&lt;?= <span class="v_1">$caption</span> ?>&lt;/h2></code>
+            <code>&lt;ul class="<span class="v_2">people</span>"></code>
+            <code>  &lt;? foreach (<span class="v_2">$people</span> as $i => <span class="v_3">$person</span>): ?></code>
+            <code>    &lt;? <span class="v_4">$isLast</span> = ($i &lt; count(<span class="v_2">$people</span>) - 1); ?></code>
+            <code>    &lt;li class="<span class="v_2">people</span>__<span class="v_3">person</span> &lt;?= <span class="v_4">$isLast</span>? 'last' : '' ?>"></code>
+            <code>      &lt;?= <span class="v_3">$person</span> ?></code>
+            <code>    &lt;/li></code>
+            <code>  &lt;? endforeach ?></code>
+            <code>&lt;/ul></code>
+        </pre>
+        <a href="http://bit.ly/tplcmp">//bit.ly/tplcmp</a>
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Шаблон Smarty</h2>
+        <pre class="html">
+            <code>&lt;h2 class="<span class="v_1">caption</span>">{<span class="v_1">$caption</span>}&lt;/h2></code>
+            <code>&lt;ul class="<span class="v_2">people</span>"></code>
+            <code>  {foreach from=<span class="v_2">$people</span> item=<span class="v_3">person</span> name=<span class="v_2">people</span>}</code>
+            <code>    {var <span class="v_4">isLast</span>=$smarty.foreach.<span class="v_2">people</span>.last}</code>
+            <code>    &lt;li class="<span class="v_2">people</span>__<span class="v_3">person</span> {if <span class="v_4">$isLast</span>}last{/if}"></code>
+            <code>      {<span class="v_3">$person</span>}</code>
+            <code>    &lt;/li></code>
+            <code>  {/foreach}</code>
+            <code>&lt;/ul></code>
+        </pre>
+        <a href="http://bit.ly/tplcmp">//bit.ly/tplcmp</a>
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Шаблон EJS</h2>
+        <pre class="html">
+            <code>&lt;h2 class="<span class="v_1">caption</span>">&lt;%= <span class="v_1">caption</span> %>&lt;/h2></code>
+            <code>&lt;ul class="<span class="v_2">people</span>"></code>
+            <code>  &lt;% for (var i = 0; i &lt; <span class="v_2">people</span>.length; i++) { %></code>
+            <code>    &lt;% var <span class="v_4">isLast</span> = i &lt; <span class="v_2">people</span>.length - 1; %></code>
+            <code>    &lt;li class="<span class="v_2">people</span>__<span class="v_3">person</span> &lt;%= <span class="v_4">isLast</span>? 'last' : '' %>"></code>
+            <code>      &lt;%= <span class="v_3">people[i]</span> %></code>
+            <code>    &lt;/li></code>
+            <code>  &lt;% } %></code>
+            <code>&lt;/ul></code>
+        </pre>
+        <a href="http://bit.ly/tplcmp">//bit.ly/tplcmp</a>
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Шаблон Mustache</h2>
+        <pre class="html">
+            <code>&lt;h2 class="<span class="v_1">caption</span>">&lt;{{<span class="v_1">caption</span>}}&lt;/h2></code>
+            <code>&lt;ul class="<span class="v_2">people</span>"></code>
+            <code>  {{#<span class="v_2">people</span>}}</code>
+            <code>    </code>
+            <code>    &lt;li class="<span class="v_2">people</span>__<span class="v_3">person</span> {{^<span class="v_4">last</span>}}last{{/<span class="v_4">last</span>}}"></code>
+            <code>      {{<span class="v_3">.</span>}}</code>
+            <code>    &lt;/li></code>
+            <code>  {{/<span class="v_2">people</span>}}</code>
+            <code>&lt;/ul></code>
+        </pre>
+        <a href="http://bit.ly/tplcmp">//bit.ly/tplcmp</a>
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Шаблоны для Angular</h2>
+        <pre class="html">
+            <code>&lt;h2 class="<span class="v_1">caption</span>">{{<span class="v_1">caption</span>}}&lt;/h2></code>
+            <code>&lt;ul class="<span class="v_2">people</span>" </code>
+            <code>  ng-repeat="<span class="v_3">person</span> in <span class="v_2">people</span>"></code>
+            <code>  </code>
+            <code>    &lt;li class="<span class="v_2">people</span>__<span class="v_3">person</span> {{<span class="v_4">$last</span>? 'last' : ''}}"></code>
+            <code>      {{<span class="v_3">person</span>}}</code>
+            <code>    &lt;/li></code>
+            <code>  </code>
+            <code>&lt;/ul></code>
+        </pre>
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Псевдокод</h2>
+        <pre class="html">
+            <code>вывести '&lt;h2 class="<span class="v_1">caption</span>">';</code>
+            <code>вывести <span class="v_1">caption</span>;</code>
+            <code>вывести '&lt;/h2>';</code>
+            <code>вывести '&lt;ul class="<span class="v_2">people</span>">';</code>
+            <code>цикл <span class="v_3">person</span> из <span class="v_2">people</span>;</code>
+            <code>    вывести '&lt;li class="<span class="v_2">people</span>__<span class="v_3">person</span> ';</code>
+            <code>    вывести '<span class="v_4">last</span>' если <span class="v_4">последний</span>;</code>
+            <code>    вывести '">';</code>
+            <code>    вывести <span class="v_3">person</span>;</code>
+            <code>    вывести '&lt;/li>';</code>
+            <code>вывести '&lt;/ul>';</code>
+        </pre>
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Шаблоны на React JSX</h2>
+        <pre class="html">
+            <code>&lt;h2 className="<span class="v_1">caption</span>">{this.props.<span class="v_1">caption</span>}&lt;/h2></code>
+            <code>&lt;ul className="<span class="v_2">people</span>"></code>
+            <code>  {this.props.<span class="v_2">people</span>.map(function(<span class="v_3">person</span>, i, <span class="v_2">people</span>) {</code>
+            <code>    var <span class="v_4">lastCls</span> = i >= <span class="v_2">people</span>.length - 1 ? 'last' : '';</code>
+            <code>    return &lt;li className={"<span class="v_2">people</span>__<span class="v_3">person</span> " + <span class="v_4">lastCls</span>}></code>
+            <code>      {<span class="v_3">person</span>}</code>
+            <code>    &lt;/li>;</code>
+            <code>  })}</code>
+            <code>&lt;/ul></code>
+        </pre>
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Проблемы императивного подхода</h2>
+        <ul>
+            <li class="next">Несоразмерный рост сложности модели вычислений;</li>
+            <li class="next">предсказать результат работы — крайне сложно;</li>
+            <li class="next">большинство таких шаблонизаторов — синтаксический «сахар».</li>
+        </ul>
+        <p class="next note">Ой-ой.</p>
+    </div></section>
+
+<!--
+    <section class="slide"><div>
+        <h2>Предписания</h2>
+        <img style="max-height: 75%" src="https://d262ilb51hltx0.cloudfront.net/max/668/1*LAPQsSe_21QvR3xzJJZFdg.jpeg" />
+    </div></section>
+-->
+
+    <section class="slide"><div>
+        <h2>Предписания или декларативный подход</h2>
+        <ul>
+            <li>Представители: HTML, CSS, SQL, XSLT;</li>
+            <li class="next">описывают желаемые результаты, а не процесс их достижения;</li>
+            <li class="next">часто детерминированность и функциональная чистота;</li>
+            <li class="next">порядок инструкций в блоке не важен.</li>
+        </ul>
+        <p class="next glued">XML + XSLT — наше все?</p>
+        <p class="next glued">Структурированный JSON + Plates, Yate, BEMXJST, BH — тоже вариант.</p>
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Пример HTML-кода еще раз</h2>
+        <pre class="html">
+            <code>&lt;h2 class="<span class="v_1">caption</span>">Heading&lt;/h2></code>
+            <code>&lt;ul class="<span class="v_2">people</span>"></code>
+            <code>  </code>
+            <code>  </code>
+            <code>    &lt;li class="<span class="v_2">people</span>__<span class="v_3">person</span>">John&lt;/li></code>
+            <code>    &lt;li class="<span class="v_2">people</span>__<span class="v_3">person</span>">Malkovich&lt;/li></code>
+            <code>    &lt;li class="<span class="v_2">people</span>__<span class="v_3">person</span> <span class="v_4">last</span>">Doe&lt;/li></code>
+            <code>  </code>
+            <code>&lt;/ul></code>
+        </pre>
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>XSLT-шаблон</h2>
+        <pre class="html smaller">
+            <code>&lt;xsl:template match="/data/<span class="v_1">caption</span>"></code>
+            <code>  &lt;h2 class="<span class="v_1">caption</span>">&lt;xsl:value-of select="."/>&lt;/h2></code>
+            <code>&lt;/xsl:template></code>
+            <code>&lt;xsl:template match="/data/<span class="v_2">people</span>"></code>
+            <code>  &lt;ul class="<span class="v_2">people</span>">&lt;xsl:value-of select="."/>&lt;/ul></code>
+            <code>&lt;/xsl:template></code>
+            <code>&lt;xsl:template match="/data/<span class="v_2">people</span>/<span class="v_3">person</span>"></code>
+            <code>  &lt;li class="<span class="v_2">people</span>__<span class="v_3">person</span>">&lt;xsl:value-of select="."/>&lt;/li></code>
+            <code>&lt;/xsl:template></code>
+            <code>&lt;xsl:template match="/data/<span class="v_2">people</span>/<span class="v_3">person</span>[position() = <span class="v_4">last()</span>]"></code>
+            <code>  &lt;li class="<span class="v_2">people</span>__<span class="v_3">person</span> <span class="v_4">last</span>">&lt;xsl:value-of select="."/>&lt;/li></code>
+            <code>&lt;/xsl:template></code>
+        </pre>
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Данные в XML</h2>
+        <pre class="html">
+            <code>&lt;?xml version="1.0"?></code>
+            <code>&lt;data></code>
+            <code>  &lt;<span class="v_1">caption</span>>Cap&lt;/<span class="v_1">caption</span>></code>
+            <code>  &lt;<span class="v_2">people</span>></code>
+            <code>    &lt;<span class="v_3">person</span>>John&lt;/<span class="v_3">person</span>></code>
+            <code>    &lt;<span class="v_3">person</span>>Doe&lt;/<span class="v_3">person</span>></code>
+            <code>  &lt;/<span class="v_2">people</span>></code>
+            <code>&lt;/data></code>
+        </pre>
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Шаблоны на BH</h2>
+        <pre class="js">
+            <code>bh.match('<span class="v_1">caption</span>', function (ctx) {</code>
+            <code>  ctx.tag('h2');</code>
+            <code>});</code>
+            <code>bh.match('<span class="v_2">people</span>', function (ctx) {</code>
+            <code>  ctx.tag('ul');</code>
+            <code>});</code>
+            <code>bh.match('<span class="v_2">people</span>__<span class="v_3">person</span>', function (ctx) {</code>
+            <code>  ctx.tag('li');</code>
+            <code>  if(ctx.<span class="v_4">isLast</span>()) ctx.cls('<span class="v_4">last</span>');</code>
+            <code>});</code>
+        </pre>
+        <p class="note glued">
+            Декларативненько — когда порядок роли не играет.
+        </p>
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Шаблон на выдуманном CHS</h2>
+        <pre class="css">
+            <code><span class="v_1">caption</span> {</code>
+            <code>  tag: h2;</code>
+            <code>}</code>
+            <code><span class="v_2">people</span> {</code>
+            <code>  tag: ul;</code>
+            <code>}</code>
+            <code><span class="v_2">people</span>__<span class="v_3">person</span> {</code>
+            <code>  tag: li;</code>
+            <code>}</code>
+            <code><span class="v_2">people</span>__<span class="v_3">person</span>:<span class="v_4">last-child</span> {</code>
+            <code>  class: <span class="v_4">last</span>;</code>
+            <code>}</code>
+        </pre>
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>И данные в формате BEMJSON</h2>
+        <pre class="html">
+            <code>[</code>
+            <code>  { block: '<span class="v_1">caption</span>', content: 'Heading' },</code>
+            <code>  { block: '<span class="v_2">people</span>', content: [</code>
+            <code>    { elem: '<span class="v_3">person</span>', content : 'John' },</code>
+            <code>    { elem: '<span class="v_3">person</span>', content : 'Malkovich' },</code>
+            <code>    { elem: '<span class="v_3">person</span>', content : 'Doe' }</code>
+            <code>  ] }</code>
+            <code>]</code>
+        </pre>
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Проблемки декларативного подхода?</h2>
+        <ul>
+            <li class="next">Входные данные нужно готовить;</li>
+            <li class="next">не так далеко до функциональщины;</li>
+            <li class="next">сносит голову;</li>
+            <li class="next">медленнее, при использовании в лоб.</li>
+        </ul>
+        <p class="next">Любая программа балансирует между императивом и декларативом.</p>
+    </div></section>
+
+
+
+
+    <section class="slide cover"><div>
+        <h2>Нюансы</h2>
+        <img src="i/salvatore.24.jpg" width="100%" style="top:-70px;" />
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Строковые vs DOM-шаблонизаторы</h2>
+        <ul>
+            <li class="next">Строковые на клиенте — медленно;</li>
+            <li class="next">DOM-шаблонизаторы на сервере — боль.</li>
+        </ul>
+        <p class="next">Хороший шаблонизатор должен быть многостаночником.</p>
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Предметная ориентация</h2>
+        <p class="next">Разделение классического подхода на 2 преобразования.</p>
+        <ul class="glued">
+            <li class="next">Построение view-ориентированной структуры<br/><i>(энтропия, грязные функции, получение данных из окружения)</i>;</li>
+            <li class="next">Преобразование в HTML-строку с разметкой сущностей;</li>
+            <li class="next">Преобразование в DOM-ноды на клиенте.</li>
+        </ul>
+        <p class="next glued">Компоненты — абстракция в различных технологиях над DOM.</p>
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Схемка</h2>
+        <img src="https://d262ilb51hltx0.cloudfront.net/max/1600/1*8DnzUobcUmInIMhKbEFFXg.jpeg" width="100%" />
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Преобразование: исходник</h2>
+        <pre class="js">
+          <code>{</code>
+          <code>  pageTitle: 'Контакты',</code>
+          <code>  people: [</code>
+          <code>    { id: 42, name: 'Иван Дорн',</code>
+          <code>      email: 'ivan@dorn.me' },</code>
+          <code>    { id: 77, name: 'Пересвет Янсон',</code>
+          <code>      email: 'peresvetik@ya.ru' }</code>
+          <code>  ]</code>
+          <code>}</code>
+        </pre>
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Преобразование: view-json</h2>
+        <pre class="js">
+          <code>{</code>
+          <code>  type: 'page',</code>
+          <code>  title: 'Контакты — Мой сайт',</code>
+          <code>  children: [</code>
+          <code>    { type: 'heading', level: 2, children: 'Контакты' },</code>
+          <code>    { type: 'people', children: [</code>
+          <code>      { type: 'person', children: 'Дорн И.' },</code>
+          <code>      { type: 'person', children: 'Янсон П.' }</code>
+          <code>    } ]</code>
+          <code>  ]</code>
+          <code>}</code>
+        </pre>
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Преобразование: результат</h2>
+        <pre class="html">
+          <code>&lt;!doctype html></code>
+          <code>&lt;html></code>
+          <code>  &lt;head>&lt;title>Контакты — Мой сайт&lt;/title>&lt;/head></code>
+          <code>  &lt;body></code>
+          <code>    &lt;h2 class="heading">Контакты&lt;/h2></code>
+          <code>    &lt;ul class="people"></code>
+          <code>      &lt;li class="person">Дорн И.&lt;/li></code>
+          <code>      &lt;li class="person">Янсон П.&lt;/li></code>
+          <code>    &lt;/ul></code>
+          <code>  &lt;/body></code>
+          <code>&lt;/html></code>
+        </pre>
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Живой пример: дерево компонентов React JSX</h2>
+        <pre class="jsx">
+            <code>&lt;<span class="v_1">SidebarComponent</span>></code>
+            <code>  &lt;<span class="v_2">Logo</span> image="/images/logo.svg" /></code>
+            <code>  &lt;<span class="v_3">Nav</span>></code>
+            <code>    &lt;<span class="v_4">Link</span> url="/events.html">События&lt;/<span class="v_4">Link</span>></code>
+            <code>    &lt;<span class="v_4">Link</span> url="/speakers.html">Люди&lt;/<span class="v_4">Link</span>></code>
+            <code>  &lt;/<span class="v_3">Nav</span>></code>
+            <code>  &lt;<span class="v_5">SubscribeForm</span> provider="mailchimp" id="ae74b08571" /></code>
+            <code>&lt;/<span class="v_1">SidebarComponent</span>></code>
+        </pre>
+        <p class="note">Левая колонка moscowjs.ru</p>
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Живой пример: дерево компонентов в формате BEMJSON</h2>
+        <pre class="js">
+            <code>{ block: '<span class="v_1">SidebarComponent</span>', content: [</code>
+            <code>  { block: '<span class="v_2">Logo</span>', image: '/images/logo.svg' },</code>
+            <code>  { block: '<span class="v_3">Nav</span>', content: [</code>
+            <code>    { block: '<span class="v_4">Link</span>', </code>
+            <code>      url: '/events.html', content: 'События' },</code>
+            <code>    { block: '<span class="v_4">Link</span>',</code>
+            <code>      url: '/speakers.html', content: 'Люди' },</code>
+            <code>  ] },</code>
+            <code>  { block: '<span class="v_5">SubscribeForm</span>',</code>
+            <code>    provider: 'mailchimp', id: 'ae74b08571' }</code>
+            <code>] }</code>
+        </pre>
+    </div></section>
+
+
+
+    <section class="slide cover"><div>
+        <h2 class="recovered">Взгляд изнутри</h2>
+        <img width="100%" src="i/insideout.jpg" />
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Компиляция и среда выполнения</h2>
+        <p>Компиляция — преобразование кода шаблонов в исполняемый код.</p>
+        <p class="next glued">«Рантайм» — запускает код или предоставляет функционал.</p>
+        <ul class="glued">
+            <li class="next">Статический анализ — проверяет, структуризует и ускоряет код;</li>
+            <li class="next">декларативный код — проще разбирается, шире маневр.</li>
+        </ul>
+        <p class="note next">Императивность в деталях — допустима, но чувствуйте грань.</p>
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Энтропия и побочные-эффекты</h2>
+        <p class="next">Примеры: <code>Date</code>, <code>Math.random</code>, <code>XHR.*</code>, <code>global.*</code>.</p>
+        <ul class="glued">
+            <li class="next">Медленнее;</li>
+            <li class="next">сложнее отлаживать;</li>
+            <li class="next">нельзя параллелить;</li>
+            <li class="next">нельзя запоминать результат.</li>
+        </ul>
+        <p class="glued next note">Непредсказуемы, что с них взять? В мусор!</p>
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Изоморфизм</h2>
+        <p>Рендеринг одних шаблонов и на сервере, и на клиенте.</p>
+        <ul class="glued">
+            <li class="next">2 среды выполнения — для каждого окружения;</li>
+            <li class="next">1 среда выполнения (<img src="../moscowjs/i/logo.svg" style="height:1em;vertical-align:middle" />!), и компиляция;</li>
+            <li class="next">Компиляция вместе с «рантаймом» (жыр).</li>
+        </ul>
+        <p class="glued next">DOM-деревья, кеширование, «VirtualDOM»?</p>
+        <p class="next note glued">Статический анализ кода и легкий рантайм — ваши друзья.</p>
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Попахивает функциональщиной...</h2>
+        <ul>
+            <li class="next">Чистые функции (без энтропии);</li>
+            <li class="next">запоминание результатов (мемоизация);</li>
+            <li class="next">персистентные хранилища (immutable.js);</li>
+            <li class="next">новый уровень абстракции.</li>
+        </ul>
+        <p class="next">Может еще и параллелить? Камень зря простаивает.</p>
+    </div></section>
+
+
+
+<!--
+    <section class="slide">
+        <h2>Объявления или указания</h2>
+        <h3>Шаг вперед: синтаксис Jade</p>
+        <pre>
+            <code>- if (caption)</code>
+            <code>  = caption + ': '</code>
+            <code>- each person, i in people</code>
+            <code>  = person</code>
+            <code>  - if (i &lt; people.length - 1)</code>
+            <code>    = ', '</code>
+        </pre>
+        <a href="http://bit.ly/tplcmp">//bit.ly/tplcmp</a>
+    </section>
+-->
+
+
+
+
+    <section class="slide"><div>
+        <h2>Идеальный веб-шаблонизатор</h2>
+        <ul>
+            <li>компактность и модульность шаблонов;</li>
+            <li class="next">возможность частичной отрисовки;</li>
+            <li class="next">легкий и быстрый рантайм;</li>
+            <li class="next">чистота и независимость от внешней среды;</li>
+            <li class="next">предметная ориентированность;</li>
+            <li class="next">скорость при масштабируемости;</li>
+            <li class="next">«безопасность» и правильность результата;</li>
+            <li class="next">удобство разработки и отладки;</li>
+            <li class="next">инфраструктура и простота синтаксиса.</li>
+        </ul>
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Идеальный веб-шаблонизатор</h2>
+        <h3>Примеры и проблемы</h3>
+        <ul>
+            <li class="next">React — сложность шаблонов, императивность, теряется связь между сущностями в рантайме;</li>
+            <li class="next">BH — не умеет генерировать DOM-элементы (генерирует только строки) и нет готового про VirtualDOM/Immutable.js;</li>
+        </ul>
+        <p class="next">Ваш вариант?</p>
+    </div></section>
+
+
+
+    <section class="slide cover"><div>
+        <h2>Тигр</h2>
+        <img width="100%" src="i/tiger.jpg" />
+    </div></section>
+
+    <section class="slide"><div>
+        <h2>Ссылки</h2>
+        <ul>
+            <li><a href="https://www.youtube.com/watch?v=7fFggu1fZIs">Абстракция и декомпозиция. Декларативное программирования</a></li>
+        </ul>
+    </div></section>
+
+    <section class="slide"><div>
+        <header>
+            <h2>Вопросы?</h2>
+        </header>
+        <p>Алексей Ярошевич, Dalee Digital Agency</p>
+        <p class="glued">
+            <a class="fa fa-github" href="http://github.com/zxqfox">zxqfox</a><br/>
+            <a class="fa fa-twitter" href="http://twitter.com/yaroshevich">yaroshevich</a><br/>
+            <a class="fa fa-at" href="mailto:qfox@ya.ru">qfox@ya.ru</a>
+        </p>
+        <p style="text-align:right" class="note glued">
+            <em>Шаблонизация, как дедушка завещал</em><br/>
+            <a href="http://zxqfox.github.io/talks/true-templating">zxqfox.github.io/talks/true-templating</a>
+        </p>
+    </div></section>
+    <p class="badge"><a href="https://github.com/shower/shower">Powered by Shower</a></p>
+
+    <div class="progress"><div></div></div>
+    <!-- Copyright © 2015 Alexej Yaroshevich — zxqfox.github.io/talks -->
+</body>
+</html>
