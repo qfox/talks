@@ -80,7 +80,6 @@
 
         .columns {
             display:flex;
-            height:100%;
             }
         .columns.scrolled {
             overflow-y: auto;
@@ -299,9 +298,6 @@
         <p class="next">Как итог: разделение ответственности и новая профессия.</p>
     </div></section>
 
-    <section class="slide"><div>
-    </div></section>
-
     <section class="slide cover"><div>
         <h2 class="recovered">Веления и предписания</h2>
         <img src="i/mosbattle.jpg" height="100%" />
@@ -310,7 +306,7 @@
     <section class="slide"><div>
         <h2>Веления или императивный подход</h2>
         <ul>
-            <li>Представители: Машинные коды, Asm, C, JavaScript;</li>
+	    <li>Представители: Assembler, C, JavaScript;</li>
             <li class="next">Процесс описывается инструкциями;</li>
             <li class="next">интенсивно используется присваивание;</li>
             <li class="next">И <i>исполняется</i> последовательно.</li>
@@ -420,6 +416,21 @@
     </div></section>
 
     <section class="slide"><div>
+	<h2>Шаблоны на React JSX</h2>
+	<pre class="html">
+	    <code>&lt;h2 className="<span class="v_1">caption</span>">{this.props.<span class="v_1">caption</span>}&lt;/h2></code>
+	    <code>&lt;ul className="<span class="v_2">people</span>"></code>
+	    <code>  {this.props.<span class="v_2">people</span>.map(function(<span class="v_3">person</span>, i, <span class="v_2">people</span>) {</code>
+	    <code>    var <span class="v_4">lastCls</span> = i >= <span class="v_2">people</span>.length - 1 ? 'last' : '';</code>
+	    <code>    return &lt;li className={"<span class="v_2">people</span>__<span class="v_3">person</span> " + <span class="v_4">lastCls</span>}></code>
+	    <code>      {<span class="v_3">person</span>}</code>
+	    <code>    &lt;/li>;</code>
+	    <code>  })}</code>
+	    <code>&lt;/ul></code>
+	</pre>
+    </div></section>
+
+    <section class="slide"><div>
         <h2>Псевдокод</h2>
         <pre class="html">
             <code>вывести '&lt;h2 class="<span class="v_1">caption</span>">';</code>
@@ -433,21 +444,6 @@
             <code>    вывести <span class="v_3">person</span>;</code>
             <code>    вывести '&lt;/li>';</code>
             <code>вывести '&lt;/ul>';</code>
-        </pre>
-    </div></section>
-
-    <section class="slide"><div>
-        <h2>Шаблоны на React JSX</h2>
-        <pre class="html">
-            <code>&lt;h2 className="<span class="v_1">caption</span>">{this.props.<span class="v_1">caption</span>}&lt;/h2></code>
-            <code>&lt;ul className="<span class="v_2">people</span>"></code>
-            <code>  {this.props.<span class="v_2">people</span>.map(function(<span class="v_3">person</span>, i, <span class="v_2">people</span>) {</code>
-            <code>    var <span class="v_4">lastCls</span> = i >= <span class="v_2">people</span>.length - 1 ? 'last' : '';</code>
-            <code>    return &lt;li className={"<span class="v_2">people</span>__<span class="v_3">person</span> " + <span class="v_4">lastCls</span>}></code>
-            <code>      {<span class="v_3">person</span>}</code>
-            <code>    &lt;/li>;</code>
-            <code>  })}</code>
-            <code>&lt;/ul></code>
         </pre>
     </div></section>
 
@@ -498,19 +494,20 @@
     <section class="slide"><div>
         <h2>XSLT-шаблон</h2>
         <pre class="html smaller">
-            <code>&lt;xsl:template match="/data/<span class="v_1">caption</span>"></code>
-            <code>  &lt;h2 class="<span class="v_1">caption</span>">&lt;xsl:value-of select="."/>&lt;/h2></code>
+	    <code>&lt;xsl:template match="<span class="v_1">caption</span>"></code>
+	    <code>  &lt;h2 class="<span class="v_1">caption</span>"><span class="v_5">&lt;xsl:value-of select="."/></span>&lt;/h2></code>
             <code>&lt;/xsl:template></code>
-            <code>&lt;xsl:template match="/data/<span class="v_2">people</span>"></code>
-            <code>  &lt;ul class="<span class="v_2">people</span>">&lt;xsl:value-of select="."/>&lt;/ul></code>
+	    <code>&lt;xsl:template match="<span class="v_2">people</span>"></code>
+	    <code>  &lt;ul class="<span class="v_2">people</span>"><span class="v_5">&lt;xsl:apply-templates select="person"/></span>&lt;/ul></code>
             <code>&lt;/xsl:template></code>
-            <code>&lt;xsl:template match="/data/<span class="v_2">people</span>/<span class="v_3">person</span>"></code>
-            <code>  &lt;li class="<span class="v_2">people</span>__<span class="v_3">person</span>">&lt;xsl:value-of select="."/>&lt;/li></code>
+	    <code>&lt;xsl:template match="<span class="v_3">person</span>"></code>
+	    <code>  &lt;li class="<span class="v_2">people</span>__<span class="v_3">person</span>"><span class="v_5">&lt;xsl:value-of select="."/></span>&lt;/li></code>
             <code>&lt;/xsl:template></code>
-            <code>&lt;xsl:template match="/data/<span class="v_2">people</span>/<span class="v_3">person</span>[position() = <span class="v_4">last()</span>]"></code>
-            <code>  &lt;li class="<span class="v_2">people</span>__<span class="v_3">person</span> <span class="v_4">last</span>">&lt;xsl:value-of select="."/>&lt;/li></code>
+	    <code>&lt;xsl:template match="<span class="v_3">person</span>[position() = <span class="v_4">last()</span>]"></code>
+	    <code>  &lt;li class="<span class="v_2">people</span>__<span class="v_3">person</span> <span class="v_4">last</span>"><span class="v_5">&lt;xsl:value-of select="."/></span>&lt;/li></code>
             <code>&lt;/xsl:template></code>
         </pre>
+	<p class="note">Nota bene: Опущена стандартная обертка XSLT</p>
     </div></section>
 
     <section class="slide"><div>
@@ -521,6 +518,7 @@
             <code>  &lt;<span class="v_1">caption</span>>Cap&lt;/<span class="v_1">caption</span>></code>
             <code>  &lt;<span class="v_2">people</span>></code>
             <code>    &lt;<span class="v_3">person</span>>John&lt;/<span class="v_3">person</span>></code>
+	    <code>    &lt;<span class="v_3">person</span>>Malkovich&lt;/<span class="v_3">person</span>></code>
             <code>    &lt;<span class="v_3">person</span>>Doe&lt;/<span class="v_3">person</span>></code>
             <code>  &lt;/<span class="v_2">people</span>></code>
             <code>&lt;/data></code>
@@ -538,12 +536,26 @@
             <code>});</code>
             <code>bh.match('<span class="v_2">people</span>__<span class="v_3">person</span>', function (ctx) {</code>
             <code>  ctx.tag('li');</code>
-            <code>  if(ctx.<span class="v_4">isLast</span>()) ctx.cls('<span class="v_4">last</span>');</code>
+	    <code>  if(ctx.<span class="v_4">isLast</span>()) ctx.cls('<span class="v_4">last</span>'); <span class="next">// Императив!</span></code>
             <code>});</code>
         </pre>
         <p class="note glued">
             Декларативненько — когда порядок роли не играет.
         </p>
+    </div></section>
+
+    <section class="slide"><div>
+	<h2>И данные в формате BEMJSON</h2>
+	<pre class="html">
+	    <code>[</code>
+	    <code>  { block: '<span class="v_1">caption</span>', content: 'Heading' },</code>
+	    <code>  { block: '<span class="v_2">people</span>', content: [</code>
+	    <code>    { elem: '<span class="v_3">person</span>', content : 'John' },</code>
+	    <code>    { elem: '<span class="v_3">person</span>', content : 'Malkovich' },</code>
+	    <code>    { elem: '<span class="v_3">person</span>', content : 'Doe' }</code>
+	    <code>  ] }</code>
+	    <code>]</code>
+	</pre>
     </div></section>
 
     <section class="slide"><div>
@@ -565,31 +577,39 @@
     </div></section>
 
     <section class="slide"><div>
-        <h2>И данные в формате BEMJSON</h2>
-        <pre class="html">
-            <code>[</code>
-            <code>  { block: '<span class="v_1">caption</span>', content: 'Heading' },</code>
-            <code>  { block: '<span class="v_2">people</span>', content: [</code>
-            <code>    { elem: '<span class="v_3">person</span>', content : 'John' },</code>
-            <code>    { elem: '<span class="v_3">person</span>', content : 'Malkovich' },</code>
-            <code>    { elem: '<span class="v_3">person</span>', content : 'Doe' }</code>
-            <code>  ] }</code>
-            <code>]</code>
-        </pre>
-    </div></section>
-
-    <section class="slide"><div>
         <h2>Проблемки декларативного подхода?</h2>
         <ul>
             <li class="next">Входные данные нужно готовить;</li>
-            <li class="next">не так далеко до функциональщины;</li>
-            <li class="next">сносит голову;</li>
+	    <li class="next">сносит голову — функциональщина близко;</li>
             <li class="next">медленнее, при использовании в лоб.</li>
         </ul>
-        <p class="next">Любая программа балансирует между императивом и декларативом.</p>
     </div></section>
 
-
+    <section class="slide"><div>
+	<h2>Еще раз о различиях</h2>
+	<p></p>
+	<div class="columns">
+	    <div class="next">
+		<h3>Императив</h3>
+		<ul>
+		    <li>Последовательное исполнение</li>
+		    <li>Описывается процесс</li>
+		    <li>Циклы и условия</li>
+		    <li>Присваивание переменных</li>
+		</ul>
+	    </div>
+	    <div class="next">
+		<h3>Декларатив</h3>
+		<ul>
+		    <li>Порядок не важен</li>
+		    <li>Описывается результат</li>
+		    <li>Цепочки вызовов примитивов</li>
+		    <li>Монады и гонады</li>
+		</ul>
+	    </div>
+	</div>
+	<p class="next"><i>Любая программа балансирует между императивом и декларативом.</i></p>
+    </div></section>
 
 
     <section class="slide cover"><div>
@@ -626,13 +646,13 @@
         <h2>Преобразование: исходник</h2>
         <pre class="js">
           <code>{</code>
-          <code>  pageTitle: 'Контакты',</code>
-          <code>  people: [</code>
-          <code>    { id: 42, name: 'Иван Дорн',</code>
-          <code>      email: 'ivan@dorn.me' },</code>
-          <code>    { id: 77, name: 'Пересвет Янсон',</code>
-          <code>      email: 'peresvetik@ya.ru' }</code>
-          <code>  ]</code>
+	  <code>  <span class="v_5">pageTitle: 'Контакты'</span>,</code>
+	  <code>  <span class="v_2">people: [</span></code>
+	  <code>    { <span class="v_3">id: 42, name: 'Иван Дорн'</span>,</code>
+	  <code>      <span class="v_3">email: 'ivan@dorn.me'</span> },</code>
+	  <code>    { <span class="v_4">id: 77, name: 'Пересвет Янсон'</span>,</code>
+	  <code>      <span class="v_4">email: 'peresvetik@ya.ru'</span> }</code>
+	  <code>  <span class="v_2">]</span></code></code>
           <code>}</code>
         </pre>
     </div></section>
@@ -642,13 +662,13 @@
         <pre class="js">
           <code>{</code>
           <code>  type: 'page',</code>
-          <code>  title: 'Контакты — Мой сайт',</code>
+	  <code>  <span class="v_1">title: '<span class="v_5">Контакты</span> — Мой сайт'</span>,</code>
           <code>  children: [</code>
-          <code>    { type: 'heading', level: 2, children: 'Контакты' },</code>
-          <code>    { type: 'people', children: [</code>
-          <code>      { type: 'person', children: 'Дорн И.' },</code>
-          <code>      { type: 'person', children: 'Янсон П.' }</code>
-          <code>    } ]</code>
+	  <code>    { <span class="v_5">type: 'heading', level: 2, children: 'Контакты'</span> },</code>
+	  <code>    { <span class="v_2">type: 'people', children: [</span></code>
+	  <code>      { <span class="v_3">type: 'person', children: 'Дорн И.'</span> },</code>
+	  <code>      { <span class="v_4">type: 'person', children: 'Янсон П.'</span> }</code>
+	  <code>    <span class="v_2">]</span> }</code>
           <code>  ]</code>
           <code>}</code>
         </pre>
@@ -659,47 +679,15 @@
         <pre class="html">
           <code>&lt;!doctype html></code>
           <code>&lt;html></code>
-          <code>  &lt;head>&lt;title>Контакты — Мой сайт&lt;/title>&lt;/head></code>
+	  <code>  &lt;head><span class="v_1">&lt;title><span class="v_5">Контакты</span> — Мой сайт&lt;/title></span>&lt;/head></code>
           <code>  &lt;body></code>
-          <code>    &lt;h2 class="heading">Контакты&lt;/h2></code>
-          <code>    &lt;ul class="people"></code>
-          <code>      &lt;li class="person">Дорн И.&lt;/li></code>
-          <code>      &lt;li class="person">Янсон П.&lt;/li></code>
-          <code>    &lt;/ul></code>
+	  <code>    <span class="v_5">&lt;h2 class="heading">Контакты&lt;/h2></code>
+	  <code>    <span class="v_2">&lt;ul class="people"></span></code>
+	  <code>      <span class="v_3">&lt;li class="person">Дорн И.&lt;/li></span></code>
+	  <code>      <span class="v_4">&lt;li class="person">Янсон П.&lt;/li></span></code>
+	  <code>    <span class="v_2">&lt;/ul></span></code>
           <code>  &lt;/body></code>
           <code>&lt;/html></code>
-        </pre>
-    </div></section>
-
-    <section class="slide"><div>
-        <h2>Живой пример: дерево компонентов React JSX</h2>
-        <pre class="jsx">
-            <code>&lt;<span class="v_1">SidebarComponent</span>></code>
-            <code>  &lt;<span class="v_2">Logo</span> image="/images/logo.svg" /></code>
-            <code>  &lt;<span class="v_3">Nav</span>></code>
-            <code>    &lt;<span class="v_4">Link</span> url="/events.html">События&lt;/<span class="v_4">Link</span>></code>
-            <code>    &lt;<span class="v_4">Link</span> url="/speakers.html">Люди&lt;/<span class="v_4">Link</span>></code>
-            <code>  &lt;/<span class="v_3">Nav</span>></code>
-            <code>  &lt;<span class="v_5">SubscribeForm</span> provider="mailchimp" id="ae74b08571" /></code>
-            <code>&lt;/<span class="v_1">SidebarComponent</span>></code>
-        </pre>
-        <p class="note">Левая колонка moscowjs.ru</p>
-    </div></section>
-
-    <section class="slide"><div>
-        <h2>Живой пример: дерево компонентов в формате BEMJSON</h2>
-        <pre class="js">
-            <code>{ block: '<span class="v_1">SidebarComponent</span>', content: [</code>
-            <code>  { block: '<span class="v_2">Logo</span>', image: '/images/logo.svg' },</code>
-            <code>  { block: '<span class="v_3">Nav</span>', content: [</code>
-            <code>    { block: '<span class="v_4">Link</span>', </code>
-            <code>      url: '/events.html', content: 'События' },</code>
-            <code>    { block: '<span class="v_4">Link</span>',</code>
-            <code>      url: '/speakers.html', content: 'Люди' },</code>
-            <code>  ] },</code>
-            <code>  { block: '<span class="v_5">SubscribeForm</span>',</code>
-            <code>    provider: 'mailchimp', id: 'ae74b08571' }</code>
-            <code>] }</code>
         </pre>
     </div></section>
 
@@ -726,9 +714,9 @@
         <p class="next">Примеры: <code>Date</code>, <code>Math.random</code>, <code>XHR.*</code>, <code>global.*</code>.</p>
         <ul class="glued">
             <li class="next">Медленнее;</li>
-            <li class="next">сложнее отлаживать;</li>
+	    <li class="next">проблемы с отладкой (и тестами);</li>
             <li class="next">нельзя параллелить;</li>
-            <li class="next">нельзя запоминать результат.</li>
+	    <li class="next">нельзя кешировать.</li>
         </ul>
         <p class="glued next note">Непредсказуемы, что с них взять? В мусор!</p>
     </div></section>
@@ -741,8 +729,8 @@
             <li class="next">1 среда выполнения (<img src="../moscowjs/i/logo.svg" style="height:1em;vertical-align:middle" />!), и компиляция;</li>
             <li class="next">Компиляция вместе с «рантаймом» (жыр).</li>
         </ul>
-        <p class="glued next">DOM-деревья, кеширование, «VirtualDOM»?</p>
-        <p class="next note glued">Статический анализ кода и легкий рантайм — ваши друзья.</p>
+	<p class="glued next"><i>DOM-деревья, кеширование, «VirtualDOM»?</i></p>
+	<p class="glued next">Несколько рендеров, чистые функции, персистентные хранилища.</p>
     </div></section>
 
     <section class="slide"><div>
@@ -753,8 +741,54 @@
             <li class="next">персистентные хранилища (immutable.js);</li>
             <li class="next">новый уровень абстракции.</li>
         </ul>
-        <p class="next">Может еще и параллелить? Камень зря простаивает.</p>
+	<p class="next">Может еще и параллелить? Камень зря простаивает. <i class="next">Temple?</i></p>
     </div></section>
+
+
+
+    <section class="slide"><div>
+	<h2>Живой пример</h2>
+	<img src="i/sidebar-mjs.jpg" height="70%"/>
+	<img class="next" src="i/sidebar-mjs-marked.jpg" height="70%" />
+    </div></section>
+
+    <style>.slide img.example { float:right;width:150px;filter:none;-webkit-filter:blur(0px);-moz-filter:blur(0px); }</style>
+    <section class="slide"><div>
+	<h2>Дерево компонентов React JSX</h2>
+	<img class="example" src="i/sidebar-mjs-marked.jpg" />
+	<pre class="jsx">
+	    <code>&lt;<span class="v_1">SidebarComponent</span>></code>
+	    <code>  &lt;<span class="v_2">Logo</span> image="/images/logo.svg" /></code>
+	    <code>  &lt;<span class="v_3">Nav</span>></code>
+	    <code>    &lt;<span class="v_4">Link</span> url="/events.html">События&lt;/<span class="v_4">Link</span>></code>
+	    <code>    &lt;<span class="v_4">Link</span> url="/speakers.html">Люди&lt;/<span class="v_4">Link</span>></code>
+	    <code>  &lt;/<span class="v_3">Nav</span>></code>
+	    <code>  &lt;<span class="v_5">SubscribeForm</span> provider="mailchimp" id="ae74b08571" /></code>
+	    <code>&lt;/<span class="v_1">SidebarComponent</span>></code>
+	</pre>
+	<p class="note">Левая колонка moscowjs.ru</p>
+    </div></section>
+
+    <section class="slide"><div>
+	<h2>Дерево компонентов в формате BEMJSON</h2>
+	<img class="example" src="i/sidebar-mjs-marked.jpg" />
+	<pre class="js">
+	    <code>{ block: '<span class="v_1">SidebarComponent</span>', content: [</code>
+	    <code>  { block: '<span class="v_2">Logo</span>', image: '/images/logo.svg' },</code>
+	    <code>  { block: '<span class="v_3">Nav</span>', content: [</code>
+	    <code>    { block: '<span class="v_4">Link</span>', </code>
+	    <code>      url: '/events.html', content: 'События' },</code>
+	    <code>    { block: '<span class="v_4">Link</span>',</code>
+	    <code>      url: '/speakers.html', content: 'Люди' },</code>
+	    <code>  ] },</code>
+	    <code>  { block: '<span class="v_5">SubscribeForm</span>',</code>
+	    <code>    provider: 'mailchimp', id: 'ae74b08571' }</code>
+	    <code>] }</code>
+	</pre>
+    </div></section>
+
+
+
 
 
 
@@ -780,26 +814,25 @@
     <section class="slide"><div>
         <h2>Идеальный веб-шаблонизатор</h2>
         <ul>
-            <li>компактность и модульность шаблонов;</li>
-            <li class="next">возможность частичной отрисовки;</li>
+	    <li>предметная ориентированность;</li>
+	    <li class="next">чистота шаблонов («сахар»);</li>
+	    <li class="next">модульность (частичная отрисовка);</li>
             <li class="next">легкий и быстрый рантайм;</li>
             <li class="next">чистота и независимость от внешней среды;</li>
-            <li class="next">предметная ориентированность;</li>
-            <li class="next">скорость при масштабируемости;</li>
-            <li class="next">«безопасность» и правильность результата;</li>
-            <li class="next">удобство разработки и отладки;</li>
-            <li class="next">инфраструктура и простота синтаксиса.</li>
+	    <li class="next">инфраструктура и удобство разработки;</li>
         </ul>
+	<p class="next note">Nota bene: Скорость разработки VS масштабируемость VS поддержка.</p>
     </div></section>
 
     <section class="slide"><div>
-        <h2>Идеальный веб-шаблонизатор</h2>
-        <h3>Примеры и проблемы</h3>
+	<h2>Предметно-ориентированные кандидаты</h2>
         <ul>
-            <li class="next">React — сложность шаблонов, императивность, теряется связь между сущностями в рантайме;</li>
-            <li class="next">BH — не умеет генерировать DOM-элементы (генерирует только строки) и нет готового про VirtualDOM/Immutable.js;</li>
+	    <li class="next">React JSX: императивный, JSX, VirtualDOM, строки и DOM;</li>
+	    <li class="next">BH: более декларативный, JS, чистый, строки или BEMJSON;</li>
+	    <li class="next">BEMHTML: еще более декларативный, свой/JS, чистый, строки;</li>
+	    <li class="next">Basis: смешанный, HTML+, строки и DOM;</li>
+	    <li class="next">Temple?</li>
         </ul>
-        <p class="next">Ваш вариант?</p>
     </div></section>
 
 
@@ -812,7 +845,10 @@
     <section class="slide"><div>
         <h2>Ссылки</h2>
         <ul>
-            <li><a href="https://www.youtube.com/watch?v=7fFggu1fZIs">Абстракция и декомпозиция. Декларативное программирования</a></li>
+	    <li><a href="https://youtu.be/7fFggu1fZIs">youtu.be/7fFggu1fZIs</a> — Лекция «Абстракция и декомпозиция. Декларативное программирование»</li>
+	    <li><a href="https://events.yandex.ru/lib/talks/329/">bit.ly/tplveged</a> — Лекция «Про шаблонизаторы вообще, и BEMHTML в частности», Сергей Бережной</li>
+	    <li><a href="http://youtu.be/b0EF0VTs9Dc">youtu.be/b0EF0VTs9Dc</a> — EN: Лекция «Monads and Gonads», Crockford</li>
+	    <li><a href="http://bit.ly/tplcmp">bit.ly/tplcmp</a> — Gist про сравнение шаблонизаторов</li>
         </ul>
     </div></section>
 
@@ -820,15 +856,16 @@
         <header>
             <h2>Вопросы?</h2>
         </header>
+	<img class="example" style="width:240px;margin:-10px -20px 0 0;" src="i/cc-qr.png" />
         <p>Алексей Ярошевич, Dalee Digital Agency</p>
-        <p class="glued">
-            <a class="fa fa-github" href="http://github.com/zxqfox">zxqfox</a><br/>
-            <a class="fa fa-twitter" href="http://twitter.com/yaroshevich">yaroshevich</a><br/>
-            <a class="fa fa-at" href="mailto:qfox@ya.ru">qfox@ya.ru</a>
+	<p class="contacts glued">
+	    <span class="fa fa-github"></span> <a href="http://github.com/zxqfox">@zxqfox</a><br/>
+	    <span class="fa fa-twitter"></span> <a href="http://twitter.com/yaroshevich">@yaroshevich</a><br/>
+	    <span class="fa fa-at"></span> <a href="mailto:qfox@ya.ru">qfox@ya.ru</a>
         </p>
         <p style="text-align:right" class="note glued">
-            <em>Шаблонизация, как дедушка завещал</em><br/>
-            <a href="http://zxqfox.github.io/talks/true-templating">zxqfox.github.io/talks/true-templating</a>
+	    <a href="http://j.mp/ttmpl">j.mp/ttmpl</a><br/>
+	    <em>Шаблонизация, как дедушка завещал</em>
         </p>
     </div></section>
     <p class="badge"><a href="https://github.com/shower/shower">Powered by Shower</a></p>
